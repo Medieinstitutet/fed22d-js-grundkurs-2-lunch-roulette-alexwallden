@@ -3,7 +3,7 @@ import './style/style.scss';
 // All kod härifrån och ner är bara ett exempel för att komma igång
 
 // I denna utils-fil har vi lagrat funktioner som ofta används, t.ex. en "blanda array"-funktion
-import { shuffle } from './utils';
+import shuffle from './utils';
 
 // I denna fil har vi lagrat vår "data", i detta exempel en ofullständig kortlek
 import exampleCardDeck from './exampleArray';
@@ -32,7 +32,9 @@ myShuffledCardDeck.forEach((card) => {
     </button>`;
 });
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = cardString;
+const app: HTMLDivElement | null = document.querySelector('#app');
+
+if (app !== null) { app.innerHTML = cardString; }
 
 document.querySelectorAll('.card').forEach((card) => {
   card.addEventListener('click', flipCard);
