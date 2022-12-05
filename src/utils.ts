@@ -1,3 +1,3 @@
-export default function shuffle(array: string[] | number[] | object[]) {
+export default function shuffle(array: string[]) {
   return array.sort(() => 0.5 - Math.random());
 }
