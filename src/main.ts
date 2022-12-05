@@ -1,39 +1,117 @@
 import './style/style.scss';
+import Coordinates from './models/Coordinates';
 
-// All kod härifrån och ner är bara ett exempel för att komma igång
+const coords = new Coordinates(1, 1);
+console.log(coords);
 
-// I denna utils-fil har vi lagrat funktioner som ofta används, t.ex. en "blanda array"-funktion
-import { shuffle } from './utils';
+const app: HTMLDivElement | null = document.querySelector('#app');
 
-// I denna fil har vi lagrat vår "data", i detta exempel en ofullständig kortlek
-import exampleCardDeck from './exampleArray';
+// Check if location tracking is allowed
 
-// Blanda kortleken
-const myShuffledCardDeck = shuffle(exampleCardDeck);
+// Prompt user to allow if now allowed
 
-/**
- * Vänder upp/ner på det klickade kortet genom att toggla en CSS-klass.
- * @param this - Det HTML-element som har klickats på
- * @return {void}
- */
-function flipCard(this: HTMLElement): void {
-  if (this !== undefined) {
-    this.classList.toggle('visible');
+// Save users location in variable
+
+const getUserPosition = (): Promise<Coordinates> => (
+  new Promise((resolve, reject) => {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        resolve(new Coordinates(position.coords.latitude, position.coords.longitude));
+      },
+      (error) => {
+        if (app !== null) app.innerHTML = 'Du har plats avstängt!';
+        reject(error.message);
+      };
+    )
+  })
+)
+
+let userPosition: Coordinates;
+
+const setUserPosition = async () => {
+  try {
+    userPosition = await getUserPosition();
+    console.log(userPosition);
+    app!.innerHTML += `Din position är ${userPosition.lat} och ${userPosition.lng}`;
   }
-}
+  catch (err) {
+    console.log(err);
+  }
+};
 
-// Printa kortleken
-let cardString = '';
-myShuffledCardDeck.forEach((card) => {
-  cardString += `
-    <button class="card">
-      <span class="front">♠</span>
-      <span class="back">${card}</span>
-    </button>`;
-});
+setUserPosition();
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = cardString;
+let thenUserPosition;
+const position = getUserPosition()
+  .then((pos) => {
+    thenUserPosition = pos;
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
-document.querySelectorAll('.card').forEach((card) => {
-  card.addEventListener('click', flipCard);
-});
+console.log(thenUserPosition);
+
+// const userPosition: {
+//   lat: number, lon: number
+// } = {
+//   lat: 0,
+//   lon: 0,
+// };
+
+// const getLocation = (positionToSet) => {
+//   navigator.geolocation.getCurrentPosition(
+//     (position) => {
+//       console.log('Hämtat!');
+//       Object.keys(userPosition).forEach((prop) => {
+//         if (prop === 'lon') {
+//           position.lon = 1;
+//         }
+//       });
+//       positionToSet.lat = position.coords.latitude;
+//       positionToSet.lon = position.coords.longitude;
+//     },
+//     ((error) => {
+//       if (error.code === 1) {
+//         console.log(error.message);
+//         app!.innerHTML = `<h1>Du behöver aktivera platstjänster i din webbläsare.
+//      <a href="https://support.google.com/chrome/answer/142065?hl=en&co=GENIE.Platform%3DDesktop">
+//      Gå till denna länk för att se hur du gör</a></h1>`;
+//       } else if (error.code === 0) {
+//         console.log(error.message);
+//       }
+//     }),
+//   );
+// };
+
+// getLocation(userPosition);
+// console.log(getLocation(userPosition));
+
+// setTimeout(() => {
+//   console.log(userPosition);
+// }, 10000);
+
+// console.log(navigator.geolocation);
+
+// console.log(navigator.geolocation ? 'Ja' : 'Nej');
+
+// const permissionStatus = await navigator.permissions.query({ name: 'geolocation' });
+// console.log(permissionStatus);
+// console.log(permissionStatus.state);
+// const hasPermission = permissionStatus?.state; // Dynamic value
+
+// console.log(hasPermission);
+
+// navigator.geolocation.getCurrentPosition(
+//   (position) => {
+//     console.log(position.coords.latitude);
+//   },
+//   (error) => {
+//     if (error.code === 1) {
+//       console.log('you denied me :-(');
+//       console.log(error);
+//       navigator.permissions.query({ name: 'geolocation' })
+//       .then(console.log)
+//     }
+//   },
+// );
