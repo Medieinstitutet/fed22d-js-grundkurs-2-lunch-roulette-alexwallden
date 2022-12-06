@@ -2,7 +2,7 @@ import Coordinates from '../models/Coordinates';
 
 const app = document.querySelector('#app');
 
-const getUserCoordinates = async () => new Promise((resolve, reject) => {
+const getUserCoordinates = () => new Promise((resolve, reject) => {
   navigator.geolocation.getCurrentPosition(
     (position) => resolve(new Coordinates(position.coords.latitude, position.coords.longitude)),
     (error) => {
