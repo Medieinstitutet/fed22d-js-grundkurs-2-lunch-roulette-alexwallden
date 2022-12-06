@@ -1,4 +1,4 @@
-export default class Coordinates {
+class Coordinates {
   lat: number;
 
   lng: number;
@@ -8,3 +8,5 @@ export default class Coordinates {
     this.lng = lng;
   }
 }
+
+export default Coordinates;
