@@ -8,7 +8,6 @@ const getUserCoordinates = async () => new Promise((resolve, reject) => {
     (error) => {
       if (error.code === 1 && app !== null) {
         app.innerHTML = 'Du behöver aktivera platstjänster';
-        alert('Du behöver aktivera platstjänster');
       }
       reject(console.error(error.message));
     },
