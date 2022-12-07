@@ -1,18 +1,23 @@
 <!DOCTYPE html>
-<html lang="en"> <!-- TODO: glöm ej att byta språk här -->
+<html lang="sv">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/ico" href="/fed22d-js-grundkurs-2-lunch-roulette-alexwallden/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Projekt</title>
-    <script type="module" crossorigin src="/fed22d-js-grundkurs-2-lunch-roulette-alexwallden/assets/index.288365a0.js"></script>
-    <link rel="stylesheet" href="/fed22d-js-grundkurs-2-lunch-roulette-alexwallden/assets/index.09951560.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <title>Lunch roulette</title>
+    <script type="module" crossorigin src="/fed22d-js-grundkurs-2-lunch-roulette-alexwallden/assets/index.36a29869.js"></script>
+    <link rel="stylesheet" href="/fed22d-js-grundkurs-2-lunch-roulette-alexwallden/assets/index.a61d258d.css">
   </head>
   <body>
     <main>
-      <div class="app" id="app"></div> <!-- TODO: går bra att radera -->
+      <h1>Lunch roulette</h1>
+      <div class="app" id="app">
+        Laddar din position
+      </div> <!-- TODO: går bra att radera -->
+
       <!-- TODO: skriv din kod här, innan script-taggen -->
-      <h1>Nytt projekt!</h1>
+      <div id="map"></div>
     </main>
 
     <!-- TODO
@@ -20,6 +25,13 @@
     - Kontrollera tillgänglighet: https://www.a11yproject.com/checklist/ & Chrome Lighthouse/Firefox Accessibility Tools
     - Validera genererade CSS: https://jigsaw.w3.org/css-validator/#validate_by_input
     -->
+    <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAyyGt65_xY4awnkM55WP482gN_e8_FhVo&callback=initMap&v=weekly"
+    defer
+    ></script>
+    <!-- <script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAyyGt65_xY4awnkM55WP482gN_e8_FhVo&libraries=places&callback=initMap">
+</script> -->
     
   </body>
 </html>
