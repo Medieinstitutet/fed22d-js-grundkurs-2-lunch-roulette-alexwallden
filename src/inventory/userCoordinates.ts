@@ -14,6 +14,7 @@ const getUserCoordinates = () => new Promise((resolve, reject) => {
   );
 });
 
+// eslint-disable-next-line import/no-mutable-exports
 const userCoordinates: Coordinates = await getUserCoordinates() as Coordinates;
 
 export default userCoordinates;
