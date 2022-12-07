@@ -4,6 +4,7 @@
 import './style/style.scss';
 import userCoordinates from './inventory/userCoordinates';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 declare const google: any;
 const app: HTMLDivElement | null = document.querySelector('#app');
 
@@ -25,6 +26,8 @@ function initMap(): void {
     position: userCoordinates,
     map,
   });
+
+  console.log(marker);
 }
 
 declare global {
