@@ -1,6 +1,16 @@
 @use "utils/a11y"; // Om det inte funkar, byt @use mot @import
 @use "vendor/reset";
 
+/* Set the size of the div element that contains the map */
+#map {
+  height: 400px;
+
+  /* The height is 400 pixels */
+  width: 100%;
+  
+  /* The width is the width of the web page */
+}
+
 :root {
   // TODO: Går bra att radera kod även här!
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;

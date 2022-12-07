@@ -43,3 +43,42 @@ if (app !== null) { app.innerHTML = cardString; }
 document.querySelectorAll('.card').forEach((card) => {
   card.addEventListener('click', flipCard);
 });
+
+// const getUserPosition = (): Promise<Coordinates> => (
+//   new Promise((resolve, reject) => {
+//     navigator.geolocation.getCurrentPosition(
+//       (position) => {
+//         resolve(new Coordinates(position.coords.latitude, position.coords.longitude));
+//       },
+//       (error) => {
+//         if (app !== null) { app.innerHTML = 'Du har plats avstängt!'; }
+//         reject(error.message);
+//       },
+//     );
+//   })
+// );
+
+// let userPosition: Coordinates;
+
+// const setUserPosition = async () => {
+//   try {
+//     userPosition = await getUserPosition();
+//     console.log(userPosition);
+//     app!.innerHTML += `Din position är ${userPosition.lat} och ${userPosition.lng}`;
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };
+
+// setUserPosition();
+
+// let thenUserPosition;
+// getUserPosition()
+//   .then((pos) => {
+//     thenUserPosition = pos;
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//   });
+
+// console.log(thenUserPosition);
