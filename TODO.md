@@ -15,4 +15,4 @@
 - [ ] Förstå och implementera ikoner: http://map-icons.com/
 
 ## Frågor:
-- Ska jag sätta coordinaterna med en method i klassen? Hur gör jag i så fall?
+- Hur sätter jag funktioner som listeners på markers utan att det blir en unik funktion som det blir nu i och marker.addListener?

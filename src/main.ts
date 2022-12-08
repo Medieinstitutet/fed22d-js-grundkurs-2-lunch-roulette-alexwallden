@@ -20,7 +20,6 @@ const app: HTMLDivElement | null = document.querySelector('#app');
 const button: HTMLElement | null = document.querySelector('#btn');
 const removeButton: HTMLElement | null = document.querySelector('#remove-btn');
 const rangeInputs: HTMLElement[] = Array.from(document.querySelectorAll('input[name="range-input"]'));
-const restaurantNames: string[] = [];
 let radius = 500;
 let userCoordinates: Coordinates | null = null;
 const markers: any[] = [];
@@ -57,6 +56,10 @@ function retrieveRestaurants() {
     windowToOpen.open(map, marker);
   }
 
+  function closeDetailWindow(windowToClose: { close: (arg0: any, arg1: any) => void; }, marker: any) {
+    windowToClose.close(map, marker);
+  }
+
   // Skriv ut resultaten på kartan
   function handleResults(results: string | any[], status: any) {
     if (status === google.maps.places.PlacesServiceStatus.OK && markers.length > 0) {
@@ -79,20 +82,19 @@ function retrieveRestaurants() {
                 // map,
                 // icon: restaurant.icon,
               });
+              // eslint-disable-next-line max-len
+              const detailWindow: { open: (arg0: any, arg1: any) => void, close: (arg0: any, arg1: any) => void; } = new google.maps.InfoWindow({
+                content: `<h2 style="color: black">${restaurant.name as string}</h2>`,
+              });
+              marker.addListener('mouseover', () => openDetailWindow(detailWindow, marker));
+              marker.addListener('mouseout', () => closeDetailWindow(detailWindow, marker));
               markers.push(marker);
-              restaurantNames.push(restaurant.name as string);
             }
           }
         }
       }
-      markers.forEach((element, i) => {
+      markers.forEach((element) => {
         element.setMap(map);
-        if (i > 0) {
-          const detailWindow: { open: (arg0: any, arg1: any) => void; } = new google.maps.InfoWindow({
-            content: `<h2 style="color: black">${restaurantNames[i - 1]}</h2>`,
-          });
-          element.addListener('click', () => openDetailWindow(detailWindow, element));
-        }
       });
     }
     switch (radius) {
