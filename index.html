@@ -6,18 +6,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <title>Lunch roulette</title>
-    <script type="module" crossorigin src="/fed22d-js-grundkurs-2-lunch-roulette-alexwallden/assets/index.95166e3e.js"></script>
+    <script type="module" crossorigin src="/fed22d-js-grundkurs-2-lunch-roulette-alexwallden/assets/index.7e3cd96f.js"></script>
     <link rel="stylesheet" href="/fed22d-js-grundkurs-2-lunch-roulette-alexwallden/assets/index.a61d258d.css">
   </head>
   <body>
     <main>
       <h1>Lunch roulette</h1>
       <div class="app" id="app">
-        Laddar din position
-      </div> <!-- TODO: går bra att radera -->
-
-      <!-- TODO: skriv din kod här, innan script-taggen -->
+        Laddar din position...
+      </div> 
       <div id="map"></div>
+      <form>
+        <label for="">
+          500m
+          <input type="radio" name="range-input" value="500">
+        </label>
+        <label for="">
+          1km
+          <input type="radio" name="range-input" value="1000">
+        </label>
+        <label for="">
+          3km
+          <input type="radio" name="range-input" value="3000">
+        </label>
+      </form>
+      <button id="btn">Klicka här för att hämta restauranger</button>
+      <br>
+      <button id="remove-btn">Ta bort markers</button>
     </main>
 
     <!-- TODO
@@ -28,7 +43,6 @@
     
     <script
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAyyGt65_xY4awnkM55WP482gN_e8_FhVo&v=weekly&libraries=places"
-    defer
     ></script>
     <!-- <script async
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAyyGt65_xY4awnkM55WP482gN_e8_FhVo&libraries=places&callback=initMap">
