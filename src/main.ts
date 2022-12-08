@@ -20,6 +20,7 @@ const app: HTMLDivElement | null = document.querySelector('#app');
 const button: HTMLElement | null = document.querySelector('#btn');
 const removeButton: HTMLElement | null = document.querySelector('#remove-btn');
 const rangeInputs: HTMLElement[] = Array.from(document.querySelectorAll('input[name="range-input"]'));
+const restaurantNames: string[] = [];
 let radius = 500;
 let userCoordinates: Coordinates | null = null;
 const markers: any[] = [];
@@ -34,17 +35,16 @@ rangeInputs.forEach((input) => {
 });
 
 function removeMarkers() {
-  markers.forEach((element) => {
-    element.setMap(null);
+  markers.slice(1).forEach((element) => {
+    element.setMap(null); // Remove the marker from map
   });
   markers.splice(1);
-  markers[0].setMap(map);
-  console.log(markers);
 }
 
 removeButton?.addEventListener('click', removeMarkers);
 
 function retrieveRestaurants() {
+  removeMarkers();
   const request = {
     location: userCoordinates,
     radius,
@@ -53,44 +53,61 @@ function retrieveRestaurants() {
 
   console.log(radius);
 
+  function openDetailWindow(windowToOpen: { open: (arg0: any, arg1: any) => void; }, marker: any) {
+    windowToOpen.open(map, marker);
+  }
+
   // Skriv ut resultaten på kartan
   function handleResults(results: string | any[], status: any) {
     if (status === google.maps.places.PlacesServiceStatus.OK && markers.length > 0) {
-      console.log(markers);
       markers.splice(1);
-      console.log(markers);
       console.log(results);
       for (let i = 0; i < results.length; i++) {
         // printa en kartnål
         const restaurant = results[i];
-        const lat: number = restaurant.geometry.location.lat();
-        // const { lat }: { lat: number } = restaurant.geometry.location;
-        const lng: number = restaurant.geometry.location.lng();
-        // const { lng }: { lng: number } = restaurant.geometry.location;
-        const position = new Coordinates(lat, lng);
-        const marker = new google.maps.Marker({
-          position,
-          // map,
-        });
-        markers.push(marker);
+        if (restaurant.business_status === 'OPERATIONAL') {
+          if (restaurant.opening_hours) {
+            const isOpenNow = restaurant.opening_hours.open_now;
+            if (isOpenNow) {
+              const lat: number = restaurant.geometry.location.lat();
+              // const { lat }: { lat: number } = restaurant.geometry.location;
+              const lng: number = restaurant.geometry.location.lng();
+              // const { lng }: { lng: number } = restaurant.geometry.location;
+              const position = new Coordinates(lat, lng);
+              const marker = new google.maps.Marker({
+                position,
+                // map,
+                // icon: restaurant.icon,
+              });
+              markers.push(marker);
+              restaurantNames.push(restaurant.name as string);
+            }
+          }
+        }
       }
-      markers.forEach((element) => {
+      markers.forEach((element, i) => {
         element.setMap(map);
+        if (i > 0) {
+          const detailWindow: { open: (arg0: any, arg1: any) => void; } = new google.maps.InfoWindow({
+            content: `<h2 style="color: black">${restaurantNames[i - 1]}</h2>`,
+          });
+          element.addListener('click', () => openDetailWindow(detailWindow, element));
+        }
       });
-      switch (radius) {
-        case 500:
-          map.setZoom(15);
-          break;
-        case 1000:
-          map.setZoom(14);
-          break;
-        case 3000:
-          map.setZoom(12);
-          break;
-        default:
-          map.setZoom(12);
-          break;
-      }
+    }
+    switch (radius) {
+      case 500:
+        map.setZoom(15);
+        break;
+      case 1000:
+        map.setZoom(14);
+        break;
+      case 3000:
+        map.setZoom(12);
+        break;
+      default:
+        map.setZoom(12);
+        break;
     }
   }
 
@@ -100,9 +117,7 @@ function retrieveRestaurants() {
   // handleResults(mockRestaurants, 'OK');
 }
 
-button?.addEventListener('click', () => {
-  retrieveRestaurants();
-});
+button?.addEventListener('click', retrieveRestaurants);
 
 function initMap(): void {
   const mapContainer: HTMLDivElement | null = document.querySelector('#map');
