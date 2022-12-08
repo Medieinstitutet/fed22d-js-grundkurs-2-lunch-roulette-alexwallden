@@ -14,6 +14,11 @@ declare global {
   }
 }
 
+interface IDetailWindow {
+  open: (arg0: any, arg1: any) => void,
+  close: (arg0: any, arg1: any) => void
+}
+
 let map: any;
 declare const google: any;
 const app: HTMLDivElement | null = document.querySelector('#app');
@@ -50,13 +55,11 @@ function retrieveRestaurants() {
     type: ['restaurant'],
   };
 
-  console.log(radius);
-
-  function openDetailWindow(windowToOpen: { open: (arg0: any, arg1: any) => void; }, marker: any) {
+  function openDetailWindow(windowToOpen: IDetailWindow, marker: any) {
     windowToOpen.open(map, marker);
   }
 
-  function closeDetailWindow(windowToClose: { close: (arg0: any, arg1: any) => void; }, marker: any) {
+  function closeDetailWindow(windowToClose: IDetailWindow, marker: any) {
     windowToClose.close(map, marker);
   }
 
@@ -82,8 +85,7 @@ function retrieveRestaurants() {
                 // map,
                 // icon: restaurant.icon,
               });
-              // eslint-disable-next-line max-len
-              const detailWindow: { open: (arg0: any, arg1: any) => void, close: (arg0: any, arg1: any) => void; } = new google.maps.InfoWindow({
+              const detailWindow: IDetailWindow = new google.maps.InfoWindow({
                 content: `<h2 style="color: black">${restaurant.name as string}</h2>`,
               });
               marker.addListener('mouseover', () => openDetailWindow(detailWindow, marker));
