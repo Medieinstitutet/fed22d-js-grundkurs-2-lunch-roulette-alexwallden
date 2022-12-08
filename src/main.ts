@@ -1,11 +1,12 @@
-/* eslint-disable max-len */
 /* eslint-disable no-new */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import './style/style.scss';
 import getUserCoordinates from './inventory/userCoordinates';
 import Coordinates from './models/Coordinates';
+// import mockRestaurants from './inventory/mockRestaurants.json';
 
 declare global {
   interface Window {
@@ -13,33 +14,82 @@ declare global {
   }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-declare const google: any;
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 let map: any;
+declare const google: any;
 const app: HTMLDivElement | null = document.querySelector('#app');
-
+const button: HTMLElement | null = document.querySelector('#btn');
+const removeButton: HTMLElement | null = document.querySelector('#remove-btn');
+const rangeInputs: HTMLElement[] = Array.from(document.querySelectorAll('input[name="range-input"]'));
+let radius = 500;
 let userCoordinates: Coordinates | null = null;
+const markers: any[] = [];
 
-function retrieveRestaurants(radius: string) {
+rangeInputs.forEach((input) => {
+  input.addEventListener('click', () => {
+    const checkedRadio: HTMLOptionElement | null = document.querySelector('input[name="range-input"]:checked');
+    if (checkedRadio) {
+      radius = Number(checkedRadio.value);
+    }
+  });
+});
+
+function removeMarkers() {
+  markers.forEach((element) => {
+    element.setMap(null);
+  });
+  markers.splice(1);
+  markers[0].setMap(map);
+  console.log(markers);
+}
+
+removeButton?.addEventListener('click', removeMarkers);
+
+function retrieveRestaurants() {
   const request = {
     location: userCoordinates,
     radius,
     type: ['restaurant'],
   };
 
+  console.log(radius);
+
   // Skriv ut resultaten på kartan
   function handleResults(results: string | any[], status: any) {
-    if (status === google.maps.places.PlacesServiceStatus.OK) {
+    if (status === google.maps.places.PlacesServiceStatus.OK && markers.length > 0) {
+      console.log(markers);
+      markers.splice(1);
+      console.log(markers);
+      console.log(results);
       for (let i = 0; i < results.length; i++) {
         // printa en kartnål
-        console.log(results[i]);
         const restaurant = results[i];
-        const position = new Coordinates(restaurant.geometry.location.lat() as number, restaurant.geometry.location.lng() as number);
-        new google.maps.Marker({
+        const lat: number = restaurant.geometry.location.lat();
+        // const { lat }: { lat: number } = restaurant.geometry.location;
+        const lng: number = restaurant.geometry.location.lng();
+        // const { lng }: { lng: number } = restaurant.geometry.location;
+        const position = new Coordinates(lat, lng);
+        const marker = new google.maps.Marker({
           position,
-          map,
+          // map,
         });
+        markers.push(marker);
+      }
+      markers.forEach((element) => {
+        element.setMap(map);
+      });
+      switch (radius) {
+        case 500:
+          map.setZoom(15);
+          break;
+        case 1000:
+          map.setZoom(14);
+          break;
+        case 3000:
+          map.setZoom(12);
+          break;
+        default:
+          map.setZoom(12);
+          break;
       }
     }
   }
@@ -47,19 +97,27 @@ function retrieveRestaurants(radius: string) {
   // Gör en sökning… vänta på resultaten
   const service = new google.maps.places.PlacesService(map);
   service.nearbySearch(request, handleResults);
+  // handleResults(mockRestaurants, 'OK');
 }
 
+button?.addEventListener('click', () => {
+  retrieveRestaurants();
+});
+
 function initMap(): void {
-  map = new google.maps.Map(document.getElementById('map') as HTMLElement, {
-    zoom: 16,
+  const mapContainer: HTMLDivElement | null = document.querySelector('#map');
+  map = new google.maps.Map(mapContainer, {
+    zoom: 15,
     center: userCoordinates,
   });
-  // eslint-disable-next-line no-new
-  new google.maps.Marker({
+  const marker = new google.maps.Marker({
     position: userCoordinates,
-    map,
+    // map,
   });
-  retrieveRestaurants('1000');
+  markers.push(marker);
+  markers.forEach((element) => {
+    element.setMap(map);
+  });
 }
 
 const run = async () => {
@@ -75,7 +133,10 @@ const run = async () => {
 
 run()
   .then(() => {
-    console.log('Appen startad');
+    console.log('Appen startad!');
+    if (userCoordinates) {
+      console.log(`Din position är: ${userCoordinates.lat} lat, ${userCoordinates.lng} lng`);
+    }
   })
   .catch((err) => {
     console.error(err);
