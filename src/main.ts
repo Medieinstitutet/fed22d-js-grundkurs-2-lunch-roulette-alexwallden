@@ -21,6 +21,7 @@ interface IDetailWindow {
 let map: any;
 declare const google: any;
 const app: HTMLDivElement | null = document.querySelector('#app');
+const startButton: HTMLElement | null = document.querySelector('#start-btn');
 const retrieveButton: HTMLElement | null = document.querySelector('#retrieve-btn');
 const removeButton: HTMLElement | null = document.querySelector('#remove-btn');
 const rouletteButton: HTMLElement | null = document.querySelector('#roulette-btn');
@@ -29,6 +30,22 @@ let radius = 500;
 let userCoordinates: Coordinates | null = null;
 const markers: any[] = [];
 let randomRestaurantMarker: any;
+
+function initMap(): void {
+  const mapContainer: HTMLDivElement | null = document.querySelector('#map');
+  map = new google.maps.Map(mapContainer, {
+    zoom: 6, // TODO ändra koordinater
+    center: { lat: 59.3297408, lng: 18.0158464 },
+  });
+}
+
+function createUserMarker() {
+  const marker = new google.maps.Marker({
+    position: userCoordinates,
+    // map,
+  });
+  markers.push(marker);
+}
 
 rangeInputs.forEach((input) => {
   input.addEventListener('click', () => {
@@ -44,6 +61,34 @@ function setMarkers(array: any[]) {
     element.setMap(map);
   });
 }
+
+function startApp() {
+  console.log('Startar appen');
+  (async () => {
+    userCoordinates = await getUserCoordinates();
+    console.log(userCoordinates);
+  })()
+    .then(() => {
+      console.log('Koordinater hämtade!');
+      if (userCoordinates && app) {
+        app.innerHTML = `Din position är ${userCoordinates.lat} och ${userCoordinates.lng}`;
+        createUserMarker();
+        window.initMap = initMap;
+        setMarkers(markers);
+        map.setZoom(15);
+        map.setCenter(userCoordinates);
+        console.log(markers);
+      } else if (app) {
+        app.innerHTML = 'Du behöver aktivera platstjänster';
+      }
+    })
+    .catch((err) => {
+      console.log('Något gick fel');
+      console.error(err);
+    });
+}
+
+startButton?.addEventListener('click', startApp);
 
 function removeMarkers() {
   markers.slice(1).forEach((element) => {
@@ -128,20 +173,6 @@ function retrieveRestaurants() {
 
 retrieveButton?.addEventListener('click', retrieveRestaurants);
 
-function initMap(): void {
-  const mapContainer: HTMLDivElement | null = document.querySelector('#map');
-  map = new google.maps.Map(mapContainer, {
-    zoom: 15,
-    center: userCoordinates,
-  });
-  const marker = new google.maps.Marker({
-    position: userCoordinates,
-    // map,
-  });
-  markers.push(marker);
-  setMarkers(markers);
-}
-
 function lunchRoulette() {
   retrieveRestaurants();
   setTimeout(() => {
@@ -156,24 +187,9 @@ function lunchRoulette() {
 
 rouletteButton?.addEventListener('click', lunchRoulette);
 
-const run = async () => {
-  userCoordinates = await getUserCoordinates();
-  if (userCoordinates && app) {
-    app.innerHTML = `Din position är ${userCoordinates.lat} och ${userCoordinates.lng}`;
-    window.initMap = initMap;
-    initMap();
-  } else if (app) {
-    app.innerHTML = 'Du behöver aktivera platstjänster';
-  }
+const run = () => {
+  // userCoordinates = await getUserCoordinates();
+  initMap();
 };
 
-run()
-  .then(() => {
-    console.log('Appen startad!');
-    if (userCoordinates) {
-      console.log(`Din position är: ${userCoordinates.lat} lat, ${userCoordinates.lng} lng`);
-    }
-  })
-  .catch((err) => {
-    console.error(err);
-  });
+run();
