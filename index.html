@@ -4,18 +4,35 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/ico" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script> -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <title>Lunch roulette</title>
   </head>
   <body>
     <main>
+      <h1>Lunch roulette</h1>
       <div class="app" id="app">
-        Laddar din position
-      </div> <!-- TODO: går bra att radera -->
-
-      <!-- TODO: skriv din kod här, innan script-taggen -->
-      <h1>Nytt projekt!</h1>
+        Laddar din position...
+      </div> 
       <div id="map"></div>
+      <form>
+        <label for="">
+          500m
+          <input type="radio" name="range-input" value="500" checked>
+        </label>
+        <label for="">
+          1km
+          <input type="radio" name="range-input" value="1000">
+        </label>
+        <label for="">
+          3km
+          <input type="radio" name="range-input" value="3000">
+        </label>
+      </form>
+      <button id="retrieve-btn">Hämta restauranger</button>
+      <br>
+      <button id="remove-btn">Ta bort markers</button>
+      <br>
+      <button id="roulette-btn">Lunch-roulette!</button>
     </main>
 
     <!-- TODO
@@ -24,9 +41,11 @@
     - Validera genererade CSS: https://jigsaw.w3.org/css-validator/#validate_by_input
     -->
     <script type="module" src="/src/main.ts"></script>
-    <!-- <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAyyGt65_xY4awnkM55WP482gN_e8_FhVo&callback=initMap&v=weekly"
-      defer
-    ></script> -->
+    <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAyyGt65_xY4awnkM55WP482gN_e8_FhVo&v=weekly&libraries=places"
+    ></script>
+    <!-- <script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAyyGt65_xY4awnkM55WP482gN_e8_FhVo&libraries=places&callback=initMap">
+</script> -->
   </body>
 </html>

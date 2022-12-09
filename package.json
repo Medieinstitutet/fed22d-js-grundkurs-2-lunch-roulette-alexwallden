@@ -27,8 +27,5 @@
     "stylelint-scss": "^4.3.0",
     "typescript": "*",
     "vite": "^3.2.3"
-  },
-  "dependencies": {
-    "dotenv": "^16.0.3"
   }
 }
