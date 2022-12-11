@@ -75,9 +75,9 @@ function openDetailWindow(windowToOpen: IDetailWindow, marker: any) {
   windowToOpen.open(map, marker);
 }
 
-function closeDetailWindow(windowToClose: IDetailWindow, marker: any) {
-  windowToClose.close(map, marker);
-}
+// function closeDetailWindow(windowToClose: IDetailWindow, marker: any) {
+//   windowToClose.close(map, marker);
+// }
 
 function removeMarkers() {
   restaurantMarkers.forEach((element) => {
@@ -111,8 +111,8 @@ function renderRestaurants(results: string | any[], status: any) {
           const detailWindow: IDetailWindow = new google.maps.InfoWindow({
             content: `<h2 style="color: black">${restaurant.name as string}</h2>`,
           });
+          console.log(detailWindow);
           marker.addListener('click', () => openDetailWindow(detailWindow, marker));
-          marker.addListener('click', () => closeDetailWindow(detailWindow, marker));
           restaurantMarkers.push(marker);
         }
       }
