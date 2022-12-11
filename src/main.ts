@@ -18,7 +18,6 @@ interface IDetailWindow {
   close: (arg0: any, arg1: any) => void;
 }
 
-let map: any;
 declare const google: any;
 const app: HTMLDivElement | null = document.querySelector('#app');
 const startButton: HTMLElement | null = document.querySelector('#start-btn');
@@ -26,9 +25,11 @@ const retrieveButton: HTMLElement | null = document.querySelector('#retrieve-btn
 const removeButton: HTMLElement | null = document.querySelector('#remove-btn');
 const rouletteButton: HTMLElement | null = document.querySelector('#roulette-btn');
 const rangeInputs: HTMLElement[] = Array.from(document.querySelectorAll('input[name="range-input"]'));
+const markers: any[] = [];
+
+let map: any;
 let radius = 500;
 let userCoordinates: Coordinates | null = null;
-const markers: any[] = [];
 let randomRestaurantMarker: any;
 
 function initMap(): void {
@@ -47,13 +48,15 @@ function createUserMarker() {
   markers.push(marker);
 }
 
+function setRadius() {
+  const checkedRadio: HTMLOptionElement | null = document.querySelector('input[name="range-input"]:checked');
+  if (checkedRadio) {
+    radius = Number(checkedRadio.value);
+  }
+}
+
 rangeInputs.forEach((input) => {
-  input.addEventListener('click', () => {
-    const checkedRadio: HTMLOptionElement | null = document.querySelector('input[name="range-input"]:checked');
-    if (checkedRadio) {
-      radius = Number(checkedRadio.value);
-    }
-  });
+  input.addEventListener('click', setRadius);
 });
 
 function setMarkers(array: any[]) {
