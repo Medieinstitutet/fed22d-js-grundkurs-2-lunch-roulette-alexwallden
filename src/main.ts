@@ -53,10 +53,11 @@ function setUserMarker() {
   userMarker.setMap(map);
 }
 
-function setRadius() {
-  const checkedRadio: HTMLOptionElement | null = document.querySelector('input[name="range-input"]:checked');
-  if (checkedRadio) {
-    radius = Number(checkedRadio.value);
+function setRadius(e: Event) {
+  const { target } = e;
+  if (target) {
+    radius = Number((target as HTMLOptionElement).value);
+    console.log(radius);
   }
 }
 
@@ -70,48 +71,19 @@ function setMarkers(array: any[]) {
   });
 }
 
-function startApp() {
-  console.log('Startar appen');
-  (async () => {
-    userCoordinates = await getUserCoordinates();
-    console.log(userCoordinates);
-  })()
-    .then(() => {
-      console.log('Koordinater hämtade!');
-      if (userCoordinates && app) {
-        app.innerHTML = `Din position är ${userCoordinates.lat} och ${userCoordinates.lng}`;
-        createUserMarker();
-        setUserMarker();
-        window.initMap = initMap;
-        setMarkers(restaurantMarkers);
-        map.setZoom(15);
-        map.setCenter(userCoordinates);
-        console.log(restaurantMarkers);
-      } else if (app) {
-        app.innerHTML = 'Du behöver aktivera platstjänster';
-      }
-    })
-    .catch((err) => {
-      console.log('Något gick fel');
-      console.error(err);
-    });
-}
-
-startButton?.addEventListener('click', startApp);
-
-function removeMarkers() {
-  restaurantMarkers.forEach((element) => {
-    element.setMap(null); // Remove the marker from map
-  });
-  console.log(restaurantMarkers);
-}
-
 function openDetailWindow(windowToOpen: IDetailWindow, marker: any) {
   windowToOpen.open(map, marker);
 }
 
 function closeDetailWindow(windowToClose: IDetailWindow, marker: any) {
   windowToClose.close(map, marker);
+}
+
+function removeMarkers() {
+  restaurantMarkers.forEach((element) => {
+    element.setMap(null); // Remove the marker from map
+  });
+  console.log(restaurantMarkers);
 }
 
 // Skriv ut resultaten på kartan
@@ -162,6 +134,43 @@ function renderRestaurants(results: string | any[], status: any) {
   }
 }
 
+function startApp() {
+  console.log('Startar appen');
+  (async () => {
+    userCoordinates = await getUserCoordinates();
+    console.log(userCoordinates);
+  })()
+    .then(() => {
+      console.log('Koordinater hämtade!');
+      if (userCoordinates && app) {
+        app.innerHTML = `Din position är ${userCoordinates.lat} och ${userCoordinates.lng}`;
+        createUserMarker();
+        setUserMarker();
+        window.initMap = initMap;
+        setMarkers(restaurantMarkers);
+        map.setZoom(15);
+        map.setCenter(userCoordinates);
+        console.log(restaurantMarkers);
+        const request = {
+          location: userCoordinates,
+          radius,
+          type: ['restaurant'],
+        };
+        // Gör en sökning… vänta på resultaten
+        const service = new google.maps.places.PlacesService(map);
+        service.nearbySearch(request, renderRestaurants);
+      } else if (app) {
+        app.innerHTML = 'Du behöver aktivera platstjänster';
+      }
+    })
+    .catch((err) => {
+      console.log('Något gick fel');
+      console.error(err);
+    });
+}
+
+startButton?.addEventListener('click', startApp);
+
 removeButton?.addEventListener('click', removeMarkers);
 
 function retrieveRestaurants() {
@@ -176,30 +185,23 @@ function retrieveRestaurants() {
   const service = new google.maps.places.PlacesService(map);
   service.nearbySearch(request, renderRestaurants);
   // handleResults(mockRestaurants, 'OK');
+  console.log('Första funktionen klar');
 }
 
 retrieveButton?.addEventListener('click', () => {
-  retrieveRestaurants();
   setMarkers(restaurantMarkers);
 });
 
 function lunchRoulette() {
-  retrieveRestaurants();
-  setTimeout(() => {
-    const randomIndex: number = Math.floor(Math.random() * (restaurantMarkers.length - 1));
-    console.log(randomIndex);
-    randomRestaurantMarker = restaurantMarkers[randomIndex];
-    removeMarkers();
-    console.log(restaurantMarkers);
-    randomRestaurantMarker.setMap(map);
-  }, 1000);
+  // retrieveRestaurants();
+  const randomIndex: number = Math.floor(Math.random() * (restaurantMarkers.length - 1));
+  console.log(randomIndex);
+  randomRestaurantMarker = restaurantMarkers[randomIndex];
+  removeMarkers();
+  console.log(restaurantMarkers);
+  randomRestaurantMarker.setMap(map);
 }
 
 rouletteButton?.addEventListener('click', lunchRoulette);
 
-const run = () => {
-  // userCoordinates = await getUserCoordinates();
-  initMap();
-};
-
-run();
+initMap();
