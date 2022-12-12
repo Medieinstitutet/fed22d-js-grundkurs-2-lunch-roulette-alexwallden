@@ -14,6 +14,7 @@
 - [x] Spara koordinaterna i en variabel
 - [ ] Förstå och implementera ikoner: http://map-icons.com/
 - [ ] Fixa lint overrides
+- [ ] Ändra default-koordinaterna i initMap.
 
 ## Frågor:
 - Hur sätter jag funktioner som listeners på markers utan att det blir en unik funktion som det blir nu i och marker.addListener?

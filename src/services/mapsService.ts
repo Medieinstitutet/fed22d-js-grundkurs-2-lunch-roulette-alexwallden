@@ -3,7 +3,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
-import getUserCoordinates from './inventory/getUserCoordinates';
 import Coordinates from '../models/Coordinates';
 
 declare const google: any;
@@ -13,19 +12,21 @@ class MapsService {
 
   map: any;
 
-  initMap(): void {
-    console.log('initMap körd');
-    const mapContainer: HTMLDivElement | null = document.querySelector('#map');
+  constructor(mapContainer: HTMLDivElement | null) {
+    this.initMap(mapContainer);
+  }
+
+  initMap(mapContainer: HTMLDivElement | null): void {
     this.map = new google.maps.Map(mapContainer, {
-      zoom: 6, // TODO ändra koordinater
-      center: { lat: 59.3297408, lng: 18.0158464 },
+      zoom: 6,
+      center: { lat: 59.3297408, lng: 18.0158464 }, // TODO ändra koordinater
     });
   }
 
-  retrieveRestaurants(userCoordinates: Coordinates, radius: number) {
+  retrieveRestaurants(centerCoordinates: Coordinates, radius: number) {
     return new Promise((resolve) => {
       const request = {
-        location: userCoordinates,
+        location: centerCoordinates,
         radius,
         type: ['restaurant'],
       };
@@ -38,6 +39,16 @@ class MapsService {
           resolve(null);
         }
       });
+    });
+  }
+
+  setMarker(marker: any) {
+    marker.setMap(this.map);
+  }
+
+  setMarkers(markers: any[]) {
+    markers.forEach((marker) => {
+      marker.setMap(this.map);
     });
   }
 }
