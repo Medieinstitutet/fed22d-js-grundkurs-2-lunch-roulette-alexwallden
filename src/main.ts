@@ -84,7 +84,6 @@ function createRestaurantMarkers(restaurantsArr: any[]): Promise<void> {
             isOpenNow = place.opening_hours.isOpen();
           }
         });
-        console.log(isOpenNow);
         if (isOpenNow) {
           const lat: number = restaurant.geometry.location.lat();
           const lng: number = restaurant.geometry.location.lng();

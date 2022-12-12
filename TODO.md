@@ -20,3 +20,4 @@
 - Hur sätter jag funktioner som listeners på markers utan att det blir en unik funktion som det blir nu i och marker.addListener?
 - Är det rätt med IDetailWindow?
 - Skippa then i startApp och bara göra den funktionen till async?
+- Vad göra med alla ESLint-overrides?
