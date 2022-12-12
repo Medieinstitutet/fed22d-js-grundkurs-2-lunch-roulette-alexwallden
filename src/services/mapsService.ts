@@ -54,7 +54,3 @@ class MapsService {
 }
 
 export default MapsService;
-
-// renderRestaurants
-// rouletten
-// hide markers
