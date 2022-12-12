@@ -7,6 +7,9 @@ class Coordinates {
     this.lat = lat;
     this.lng = lng;
   }
+
+  
+
 }
 
 export default Coordinates;
