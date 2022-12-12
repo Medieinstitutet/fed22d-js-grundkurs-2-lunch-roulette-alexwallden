@@ -42,13 +42,6 @@ function createUserMarker() {
   userMarker = marker;
 }
 
-function setRadius(e: Event) {
-  const { target } = e;
-  if (target) {
-    radius = Number((target as HTMLOptionElement).value);
-  }
-}
-
 function openDetailWindow(windowToOpen: IDetailWindow, marker: any) {
   windowToOpen.open(mapsService.map, marker);
 }
@@ -63,43 +56,93 @@ function removeMarkers() {
   });
   console.log(restaurantMarkers);
 }
-
-function createRestaurantMarkers(restaurantsArr: any[]) {
-  restaurantMarkers.length = 0; // Clear restaurantMarkers
-  restaurantsArr.forEach((restaurant) => {
-    if (restaurant.business_status === 'OPERATIONAL' && restaurant.opening_hours) {
-      const isOpenNow = restaurant.opening_hours.open_now;
-      if (isOpenNow) {
-        const lat: number = restaurant.geometry.location.lat();
-        const lng: number = restaurant.geometry.location.lng();
-        const position = new Coordinates();
-        position.setCoordinates(lat, lng);
-        const marker = new google.maps.Marker({
-          position,
+function wait(ms: number): Promise<void> {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, ms);
+  });
+}
+function createRestaurantMarkers(restaurantsArr: any[]): Promise<void> {
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises, no-async-promise-executor
+  return new Promise(async (resolve) => {
+    restaurantMarkers.length = 0; // Clear restaurantMarkers
+    for (let index = 0; index < restaurantsArr.length; index++) {
+      const restaurant = restaurantsArr[index];
+      let isOpenNow = false;
+      if (restaurant.business_status === 'OPERATIONAL') {
+        console.log(restaurant);
+        if (index !== 0) {
+          // eslint-disable-next-line no-await-in-loop
+          await wait(300);
+        }
+        const request = { placeId: restaurant.place_id, fields: ['name', 'opening_hours', 'utc_offset_minutes'] };
+        const service = new google.maps.places.PlacesService(mapsService.map);
+        service.getDetails(request, (place: any, status: any) => {
+          console.log(place, status);
+          if (status === 'OK' && place.opening_hours) {
+            isOpenNow = place.opening_hours.isOpen();
+          }
         });
-        const detailWindow: IDetailWindow = new google.maps.InfoWindow({
-          content: `<h2 style="color: black">${restaurant.name as string}</h2>`,
-        });
-        marker.addListener('click', () => openDetailWindow(detailWindow, marker));
-        restaurantMarkers.push(marker);
+        console.log(isOpenNow);
+        if (isOpenNow) {
+          const lat: number = restaurant.geometry.location.lat();
+          const lng: number = restaurant.geometry.location.lng();
+          const position = new Coordinates();
+          position.setCoordinates(lat, lng);
+          const marker = new google.maps.Marker({
+            position,
+          });
+          const detailWindow: IDetailWindow = new google.maps.InfoWindow({
+            content: `<h2 style="color: black">${restaurant.name as string}</h2>`,
+          });
+          marker.addListener('click', () => openDetailWindow(detailWindow, marker));
+          restaurantMarkers.push(marker);
+        }
       }
     }
+    console.log(restaurantMarkers);
+    switch (radius) {
+      case 500:
+        mapsService.map.setZoom(15);
+        break;
+      case 1000:
+        mapsService.map.setZoom(14);
+        break;
+      case 3000:
+        mapsService.map.setZoom(12);
+        break;
+      default:
+        mapsService.map.setZoom(12);
+        break;
+    }
+    resolve();
   });
-  switch (radius) {
-    case 500:
-      mapsService.map.setZoom(15);
-      break;
-    case 1000:
-      mapsService.map.setZoom(14);
-      break;
-    case 3000:
-      mapsService.map.setZoom(12);
-      break;
-    default:
-      mapsService.map.setZoom(12);
-      break;
+}
+
+function setRadius(e: Event) {
+  const { target } = e;
+  if (target) {
+    radius = Number((target as HTMLOptionElement).value);
+    (async () => {
+      await mapsService.retrieveRestaurants(userCoordinates as Coordinates, radius);
+    })()
+      .then(() => {
+        removeMarkers();
+        restaurants.length = 0;
+        restaurants = [...mapsService.restaurants];
+        // eslint-disable-next-line @typescript-eslint/no-floating-promises
+        createRestaurantMarkers(restaurants);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 }
+
+rangeInputs.forEach((input) => {
+  input.addEventListener('click', setRadius);
+});
 
 function startApp() {
   console.log('Startar appen');
@@ -119,6 +162,7 @@ function startApp() {
         mapsService.setMarkers(restaurantMarkers);
         mapsService.map.setZoom(15);
         mapsService.map.setCenter(userCoordinates);
+        // eslint-disable-next-line @typescript-eslint/no-floating-promises
         createRestaurantMarkers(restaurants);
       } else if (app) {
         app.innerHTML = 'Du behöver aktivera platstjänster';
@@ -148,7 +192,3 @@ displayButton?.addEventListener('click', () => {
 rouletteButton?.addEventListener('click', lunchRoulette);
 
 removeButton?.addEventListener('click', removeMarkers);
-
-rangeInputs.forEach((input) => {
-  input.addEventListener('click', setRadius);
-});
