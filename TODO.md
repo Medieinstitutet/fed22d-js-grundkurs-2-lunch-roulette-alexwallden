@@ -9,7 +9,7 @@
 
 
 ## Att göra:
-- [ ] En knapp som användaren får trycka på för att starta appen
+- [x] En knapp som användaren får trycka på för att starta appen
 - [x] Kolla om platser är tillåtet av användaren
 - [x] Spara koordinaterna i en variabel
 - [ ] Förstå och implementera ikoner: http://map-icons.com/
