@@ -10,6 +10,12 @@ import wait from '../inventory/helpers';
 
 declare const google: any;
 
+declare global {
+  interface Window {
+    initMap: () => void;
+  }
+}
+
 class MapsService {
   openRestaurants: any[] = [];
 
@@ -78,10 +84,12 @@ class MapsService {
   }
 
   attachInfoWindows() {
+    console.log(this.openRestaurants);
     this.openRestaurants.forEach((restaurant) => {
       restaurant.marker.addListener('click', () => {
-        restaurant.detailWindow.open(this.map, restaurant.marker);
+        restaurant.infoWindow.open({ anchor: restaurant.marker, map: this.map });
       });
+      console.log(restaurant.infoWindow);
     });
   }
 

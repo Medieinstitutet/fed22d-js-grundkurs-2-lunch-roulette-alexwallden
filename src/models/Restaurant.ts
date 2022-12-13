@@ -22,15 +22,18 @@ class Restaurant {
   details: any;
 
   constructor(info: any, coordinates: Coordinates) {
-    console.log('Restaurant constructor called');
     this.info = info;
     this.createMarker(coordinates);
     this.createInfoWindow();
   }
 
   createMarker(position: Coordinates) {
+    console.log(this.info);
+    const coords = this.info.geometry.location;
+    const lat: number = coords.lat();
+    const lng: number = coords.lng();
     const marker = new google.maps.Marker({
-      position,
+      position: { lat, lng },
     });
     this.marker = marker;
   }
