@@ -129,7 +129,7 @@ function setRadius(e: Event) {
       .then(() => {
         removeMarkers();
         restaurants.length = 0;
-        restaurants = [...mapsService.restaurants];
+        restaurants = [...mapsService.openRestaurants];
         // eslint-disable-next-line @typescript-eslint/no-floating-promises
         createRestaurantMarkers(restaurants);
       })
@@ -149,11 +149,12 @@ function startApp() {
     userCoordinates = new Coordinates();
     await userCoordinates.getUserCoordinates();
     await mapsService.retrieveRestaurants(userCoordinates, radius);
+    await mapsService.retrieveDetails();
   })()
     .then(() => {
       console.log('Koordinater hämtade!');
       if (userCoordinates && app) {
-        restaurants = [...mapsService.restaurants];
+        restaurants = [...mapsService.openRestaurants];
         app.innerHTML = `Din position är ${userCoordinates.lat} och ${userCoordinates.lng}`;
         createUserMarker();
         mapsService.setMarker(userMarker);
@@ -191,3 +192,5 @@ displayButton?.addEventListener('click', () => {
 rouletteButton?.addEventListener('click', lunchRoulette);
 
 removeButton?.addEventListener('click', removeMarkers);
+
+export default mapsService;

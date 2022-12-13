@@ -1,14 +1,17 @@
+/* eslint-disable no-await-in-loop */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
 import Coordinates from '../models/Coordinates';
+import Restaurant from '../models/Restaurant';
+import wait from '../inventory/helpers';
 
 declare const google: any;
 
 class MapsService {
-  restaurants: any[] = [];
+  openRestaurants: any[] = [];
 
   map: any;
 
@@ -23,23 +26,55 @@ class MapsService {
     });
   }
 
-  retrieveRestaurants(centerCoordinates: Coordinates, radius: number) {
+  retrieveRestaurants(userCoordinates: Coordinates, radius: number) {
     return new Promise((resolve) => {
       const request = {
-        location: centerCoordinates,
+        location: userCoordinates,
         radius,
         type: ['restaurant'],
       };
       const service: any = new google.maps.places.PlacesService(this.map);
       service.nearbySearch(request, (results: any[], status: any) => {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
-          this.restaurants = results;
+          this.openRestaurants = [];
+          results.forEach((result) => {
+            if (result.business_status === 'OPERATIONAL') {
+              const restaurant = new Restaurant(result, userCoordinates);
+              this.openRestaurants.push(restaurant);
+            }
+          });
+          console.log(this.openRestaurants);
           resolve(results);
         } else {
           resolve(null);
         }
       });
     });
+  }
+
+  async retrieveDetails() {
+    for (let index = 0; index < this.openRestaurants.length; index++) {
+      const restaurant = this.openRestaurants[index];
+      const request = { placeId: restaurant.info.place_id, fields: ['name', 'opening_hours', 'utc_offset_minutes'] };
+      const service = new google.maps.places.PlacesService(this.map);
+      service.getDetails(request, (place: any, status: any) => {
+        console.log(place, status);
+        if (status === 'OK' && place.opening_hours) {
+          const isOpenNow = place.opening_hours.isOpen();
+          console.log(isOpenNow);
+          if (isOpenNow) {
+            restaurant.details = place;
+          }
+        } else {
+          const restaurantIndex = this.openRestaurants.indexOf(restaurant);
+          console.log(restaurantIndex);
+          this.openRestaurants.splice(restaurantIndex, 1);
+          console.log(this.openRestaurants);
+        }
+      });
+      await wait(300);
+    }
+    console.log(this.openRestaurants);
   }
 
   setMarker(marker: any) {
