@@ -62,7 +62,7 @@ class MapsService {
         if (status === 'OK' && place.opening_hours) {
           const isOpenNow = place.opening_hours.isOpen();
           console.log(isOpenNow);
-          if (isOpenNow) {
+          if (!isOpenNow) {
             restaurant.details = place;
           }
         } else {
@@ -77,14 +77,23 @@ class MapsService {
     console.log(this.openRestaurants);
   }
 
+  attachInfoWindows() {
+    this.openRestaurants.forEach((restaurant) => {
+      restaurant.marker.addListener('click', () => {
+        restaurant.detailWindow.open(this.map, restaurant.marker);
+      });
+    });
+  }
+
   setMarker(marker: any) {
     marker.setMap(this.map);
   }
 
-  setMarkers(markers: any[]) {
-    markers.forEach((marker) => {
-      marker.setMap(this.map);
+  setMarkers() {
+    this.openRestaurants.forEach((restaurant) => {
+      restaurant.marker.setMap(this.map);
     });
+    console.log('clicked');
   }
 }
 

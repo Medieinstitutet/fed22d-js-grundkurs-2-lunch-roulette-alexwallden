@@ -159,11 +159,12 @@ function startApp() {
         createUserMarker();
         mapsService.setMarker(userMarker);
         // window.initMap = initMap;
-        mapsService.setMarkers(restaurantMarkers);
+        mapsService.setMarkers();
         mapsService.map.setZoom(15);
         mapsService.map.setCenter(userCoordinates);
         // eslint-disable-next-line @typescript-eslint/no-floating-promises
         createRestaurantMarkers(restaurants);
+        mapsService.attachInfoWindows();
       } else if (app) {
         app.innerHTML = 'Du behöver aktivera platstjänster';
       }
@@ -180,13 +181,13 @@ function lunchRoulette() {
   randomRestaurantMarker = restaurantMarkers[randomIndex];
   removeMarkers();
   console.log(randomRestaurantMarker);
-  mapsService.setMarkers([randomRestaurantMarker]);
+  mapsService.setMarkers();
 }
 
 startButton?.addEventListener('click', startApp);
 
 displayButton?.addEventListener('click', () => {
-  mapsService.setMarkers(restaurantMarkers);
+  mapsService.setMarkers();
 });
 
 rouletteButton?.addEventListener('click', lunchRoulette);
