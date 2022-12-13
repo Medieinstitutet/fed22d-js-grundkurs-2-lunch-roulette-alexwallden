@@ -17,7 +17,9 @@ declare global {
 }
 
 class MapsService {
-  openRestaurants: any[] = [];
+  openRestaurants: Restaurant[] = [];
+
+  removedRestaurants: Restaurant[] = [];
 
   map: any;
 
@@ -40,7 +42,7 @@ class MapsService {
         type: ['restaurant'],
       };
       const service: any = new google.maps.places.PlacesService(this.map);
-      service.nearbySearch(request, (results: any[], status: any) => {
+      service.nearbySearch(request, async (results: any[], status: any) => {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
           this.openRestaurants = [];
           results.forEach((result) => {
@@ -50,6 +52,21 @@ class MapsService {
             }
           });
           console.log(this.openRestaurants);
+          await this.retrieveDetails();
+          switch (radius) {
+            case 500:
+              this.map.setZoom(15);
+              break;
+            case 1000:
+              this.map.setZoom(14);
+              break;
+            case 3000:
+              this.map.setZoom(12);
+              break;
+            default:
+              this.map.setZoom(12);
+              break;
+          }
           resolve(results);
         } else {
           resolve(null);
@@ -64,32 +81,34 @@ class MapsService {
       const request = { placeId: restaurant.info.place_id, fields: ['name', 'opening_hours', 'utc_offset_minutes'] };
       const service = new google.maps.places.PlacesService(this.map);
       service.getDetails(request, (place: any, status: any) => {
-        console.log(place, status);
-        if (status === 'OK' && place.opening_hours) {
+        console.log('Status:', status);
+        if (status === google.maps.places.PlacesServiceStatus.OK && place.opening_hours) {
           const isOpenNow = place.opening_hours.isOpen();
           console.log(isOpenNow);
-          if (!isOpenNow) {
+          if (isOpenNow) {
             restaurant.details = place;
+            restaurant.isOpen = true;
           }
-        } else {
-          const restaurantIndex = this.openRestaurants.indexOf(restaurant);
-          console.log(restaurantIndex);
-          this.openRestaurants.splice(restaurantIndex, 1);
-          console.log(this.openRestaurants);
         }
       });
       await wait(300);
     }
+    this.openRestaurants.forEach((restaurant) => {
+      if (!restaurant.isOpen) {
+        this.removedRestaurants.push(restaurant);
+        const restaurantIndex = this.openRestaurants.indexOf(restaurant);
+        this.openRestaurants.splice(restaurantIndex, 1);
+      }
+    });
     console.log(this.openRestaurants);
+    console.log(this.removedRestaurants);
   }
 
   attachInfoWindows() {
-    console.log(this.openRestaurants);
     this.openRestaurants.forEach((restaurant) => {
       restaurant.marker.addListener('click', () => {
         restaurant.infoWindow.open({ anchor: restaurant.marker, map: this.map });
       });
-      console.log(restaurant.infoWindow);
     });
   }
 

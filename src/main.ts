@@ -48,13 +48,6 @@ function openDetailWindow(windowToOpen: IDetailWindow, marker: any) {
 //   windowToClose.close(map, marker);
 // }
 
-// function removeMarkers() {
-//   restaurantMarkers.forEach((element) => {
-//     element.setMap(null); // Removes the marker from map
-//   });
-//   console.log(restaurantMarkers);
-// }
-
 function wait(ms: number): Promise<void> {
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -100,7 +93,6 @@ function createRestaurantMarkers(restaurantsArr: any[]): Promise<void> {
         }
       }
     }
-    // console.log(restaurantMarkers);
     switch (radius) {
       case 500:
         mapsService.map.setZoom(15);
@@ -120,6 +112,7 @@ function createRestaurantMarkers(restaurantsArr: any[]): Promise<void> {
 }
 
 function setRadius(e: Event) {
+  mapsService.removeMarkers();
   const { target } = e;
   if (target) {
     radius = Number((target as HTMLOptionElement).value);
@@ -127,11 +120,6 @@ function setRadius(e: Event) {
       await mapsService.retrieveRestaurants(userCoordinates as Coordinates, radius);
     })()
       .then(() => {
-        // removeMarkers();
-        // restaurants.length = 0;
-        // restaurants = [...mapsService.openRestaurants];
-        // // eslint-disable-next-line @typescript-eslint/no-floating-promises
-        // createRestaurantMarkers(restaurants);
       })
       .catch((err) => {
         console.log(err);
@@ -150,7 +138,6 @@ function startApp() {
     await userCoordinates.getUserCoordinates();
     console.log('User coordinates hämtade');
     await mapsService.retrieveRestaurants(userCoordinates, radius);
-    await mapsService.retrieveDetails();
   })()
     .then(() => {
       console.log('Koordinater hämtade!');
@@ -159,12 +146,8 @@ function startApp() {
         app.innerHTML = `Din position är ${userCoordinates.lat} och ${userCoordinates.lng}`;
         createUserMarker();
         mapsService.setMarker(userMarker);
-        // window.initMap = initMap;
-        // mapsService.setMarkers();
         mapsService.map.setZoom(15);
         mapsService.map.setCenter(userCoordinates);
-        // eslint-disable-next-line @typescript-eslint/no-floating-promises
-        // createRestaurantMarkers(restaurants);
         mapsService.attachInfoWindows();
       } else if (app) {
         app.innerHTML = 'Du behöver aktivera platstjänster';
@@ -194,5 +177,3 @@ displayButton?.addEventListener('click', () => {
 rouletteButton?.addEventListener('click', lunchRoulette);
 
 removeButton?.addEventListener('click', () => mapsService.removeMarkers());
-
-export default mapsService;

@@ -21,14 +21,16 @@ class Restaurant {
 
   details: any;
 
+  isOpen: boolean;
+
   constructor(info: any, coordinates: Coordinates) {
     this.info = info;
-    this.createMarker(coordinates);
+    this.createMarker();
     this.createInfoWindow();
+    this.isOpen = false;
   }
 
-  createMarker(position: Coordinates) {
-    console.log(this.info);
+  createMarker() {
     const coords = this.info.geometry.location;
     const lat: number = coords.lat();
     const lng: number = coords.lng();
