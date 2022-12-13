@@ -103,6 +103,12 @@ class MapsService {
     });
     console.log('clicked');
   }
+
+  removeMarkers() {
+    this.openRestaurants.forEach((restaurant) => {
+      restaurant.marker.setMap(null);
+    });
+  }
 }
 
 export default MapsService;

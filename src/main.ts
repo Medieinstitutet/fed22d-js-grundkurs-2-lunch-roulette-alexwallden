@@ -193,6 +193,6 @@ displayButton?.addEventListener('click', () => {
 
 rouletteButton?.addEventListener('click', lunchRoulette);
 
-// removeButton?.addEventListener('click', removeMarkers);
+removeButton?.addEventListener('click', () => mapsService.removeMarkers());
 
 export default mapsService;
