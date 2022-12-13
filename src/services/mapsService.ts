@@ -120,7 +120,6 @@ class MapsService {
     this.openRestaurants.forEach((restaurant) => {
       restaurant.marker.setMap(this.map);
     });
-    console.log('clicked');
   }
 
   removeMarkers() {

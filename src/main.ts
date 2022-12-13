@@ -13,11 +13,6 @@ declare global {
   }
 }
 
-interface IDetailWindow {
-  open: (map: any, marker: any) => void;
-  close: (map: any, marker: any) => void;
-}
-
 declare const google: any;
 const app: HTMLDivElement | null = document.querySelector('#app');
 const mapContainer: HTMLDivElement | null = document.querySelector('#map');
@@ -28,6 +23,7 @@ const rouletteButton: HTMLElement | null = document.querySelector('#roulette-btn
 const rangeInputs: HTMLElement[] = Array.from(document.querySelectorAll('input[name="range-input"]'));
 const mapsService: MapsService = new MapsService(mapContainer);
 
+let userCoordinatesSuccess: any;
 let userMarker: any;
 let radius = 500;
 let userCoordinates: Coordinates | null = null;
@@ -38,77 +34,6 @@ function createUserMarker() {
     position: userCoordinates,
   });
   userMarker = marker;
-}
-
-function openDetailWindow(windowToOpen: IDetailWindow, marker: any) {
-  windowToOpen.open(mapsService.map, marker);
-}
-
-// function closeDetailWindow(windowToClose: IDetailWindow, marker: any) {
-//   windowToClose.close(map, marker);
-// }
-
-function wait(ms: number): Promise<void> {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve();
-    }, ms);
-  });
-}
-
-function createRestaurantMarkers(restaurantsArr: any[]): Promise<void> {
-  // eslint-disable-next-line @typescript-eslint/no-misused-promises, no-async-promise-executor
-  return new Promise(async (resolve) => {
-    // restaurantMarkers.length = 0; // Clear restaurantMarkers
-    for (let index = 0; index < restaurantsArr.length; index++) {
-      const restaurant = restaurantsArr[index];
-      let isOpenNow = false;
-      if (restaurant.business_status === 'OPERATIONAL') {
-        console.log(restaurant);
-        if (index !== 0) {
-          // eslint-disable-next-line no-await-in-loop
-          await wait(300);
-        }
-        const request = { placeId: restaurant.place_id, fields: ['name', 'opening_hours', 'utc_offset_minutes'] };
-        const service = new google.maps.places.PlacesService(mapsService.map);
-        service.getDetails(request, (place: any, status: any) => {
-          console.log(place, status);
-          if (status === 'OK' && place.opening_hours) {
-            isOpenNow = place.opening_hours.isOpen();
-          }
-        });
-        if (isOpenNow) {
-          const lat: number = restaurant.geometry.location.lat();
-          const lng: number = restaurant.geometry.location.lng();
-          const position = new Coordinates();
-          position.setCoordinates(lat, lng);
-          const marker = new google.maps.Marker({
-            position,
-          });
-          const detailWindow: IDetailWindow = new google.maps.InfoWindow({
-            content: `<h2 style="color: black">${restaurant.name as string}</h2>`,
-          });
-          marker.addListener('click', () => openDetailWindow(detailWindow, marker));
-          // restaurantMarkers.push(marker);
-        }
-      }
-    }
-    switch (radius) {
-      case 500:
-        mapsService.map.setZoom(15);
-        break;
-      case 1000:
-        mapsService.map.setZoom(14);
-        break;
-      case 3000:
-        mapsService.map.setZoom(12);
-        break;
-      default:
-        mapsService.map.setZoom(12);
-        break;
-    }
-    resolve();
-  });
 }
 
 function setRadius(e: Event) {
@@ -135,13 +60,12 @@ function startApp() {
   console.log('Startar appen');
   (async () => {
     userCoordinates = new Coordinates();
-    await userCoordinates.getUserCoordinates();
-    console.log('User coordinates hämtade');
+    userCoordinatesSuccess = await userCoordinates.getUserCoordinates();
     await mapsService.retrieveRestaurants(userCoordinates, radius);
   })()
     .then(() => {
-      console.log('Koordinater hämtade!');
-      if (userCoordinates && app) {
+      if (userCoordinatesSuccess && app && userCoordinates) {
+        console.log('Koordinater hämtade!');
         // restaurants = [...mapsService.openRestaurants];
         app.innerHTML = `Din position är ${userCoordinates.lat} och ${userCoordinates.lng}`;
         createUserMarker();
@@ -149,7 +73,7 @@ function startApp() {
         mapsService.map.setZoom(15);
         mapsService.map.setCenter(userCoordinates);
         mapsService.attachInfoWindows();
-      } else if (app) {
+      } else if (app && !userCoordinatesSuccess) {
         app.innerHTML = 'Du behöver aktivera platstjänster';
       }
     })
@@ -160,12 +84,18 @@ function startApp() {
 }
 
 function lunchRoulette() {
-  // const randomIndex: number = Math.floor(Math.random() * (restaurantMarkers.length - 1));
-  // console.log(randomIndex);
-  // randomRestaurantMarker = restaurantMarkers[randomIndex];
-  // removeMarkers();
-  console.log(randomRestaurantMarker);
-  mapsService.setMarkers();
+  randomRestaurantMarker.setMap(null);
+  const randomIndex: number = Math.floor(Math.random() * (mapsService.openRestaurants.length - 1));
+  console.log(randomIndex);
+  const randomRestaurant = mapsService.openRestaurants[randomIndex];
+  const coords = randomRestaurant.info.geometry.location;
+  const lat: number = coords.lat();
+  const lng: number = coords.lng();
+  randomRestaurantMarker = new google.maps.Marker({
+    position: { lat, lng },
+  });
+  mapsService.removeMarkers();
+  mapsService.setMarker(randomRestaurantMarker);
 }
 
 startButton?.addEventListener('click', startApp);
