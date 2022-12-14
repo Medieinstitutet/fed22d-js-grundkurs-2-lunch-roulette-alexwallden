@@ -38,6 +38,7 @@ function createUserMarker() {
 
 function setRadius(e: Event) {
   mapsService.removeMarkers();
+  if (randomRestaurantMarker) { randomRestaurantMarker.setMap(null); }
   const { target } = e;
   if (target) {
     radius = Number((target as HTMLOptionElement).value);
@@ -66,7 +67,6 @@ function startApp() {
     .then(() => {
       if (userCoordinatesSuccess && app && userCoordinates) {
         console.log('Koordinater hämtade!');
-        // restaurants = [...mapsService.openRestaurants];
         app.innerHTML = `Din position är ${userCoordinates.lat} och ${userCoordinates.lng}`;
         createUserMarker();
         mapsService.setMarker(userMarker);
@@ -84,7 +84,7 @@ function startApp() {
 }
 
 function lunchRoulette() {
-  randomRestaurantMarker.setMap(null);
+  if (randomRestaurantMarker) { randomRestaurantMarker.setMap(null); }
   const randomIndex: number = Math.floor(Math.random() * (mapsService.openRestaurants.length - 1));
   console.log(randomIndex);
   const randomRestaurant = mapsService.openRestaurants[randomIndex];

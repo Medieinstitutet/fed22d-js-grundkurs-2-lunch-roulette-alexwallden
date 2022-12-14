@@ -3,8 +3,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
-import Coordinates from './Coordinates';
-
 declare const google: any;
 
 interface IInfoWindow {
@@ -23,7 +21,7 @@ class Restaurant {
 
   isOpen: boolean;
 
-  constructor(info: any, coordinates: Coordinates) {
+  constructor(info: any) {
     this.info = info;
     this.createMarker();
     this.createInfoWindow();

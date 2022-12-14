@@ -47,7 +47,7 @@ class MapsService {
           this.openRestaurants = [];
           results.forEach((result) => {
             if (result.business_status === 'OPERATIONAL') {
-              const restaurant = new Restaurant(result, userCoordinates);
+              const restaurant = new Restaurant(result);
               this.openRestaurants.push(restaurant);
             }
           });
@@ -89,16 +89,27 @@ class MapsService {
             restaurant.details = place;
             restaurant.isOpen = true;
           }
+          console.log(isOpenNow, restaurant.isOpen);
         }
       });
       await wait(300);
     }
+    console.log(this.openRestaurants);
     this.openRestaurants.forEach((restaurant) => {
+      console.log(restaurant.info.name, restaurant.isOpen);
       if (!restaurant.isOpen) {
-        this.removedRestaurants.push(restaurant);
         const restaurantIndex = this.openRestaurants.indexOf(restaurant);
+        this.removedRestaurants.push(restaurant);
         this.openRestaurants.splice(restaurantIndex, 1);
+        console.log(this.openRestaurants);
       }
+    });
+    console.log(this.openRestaurants);
+    this.openRestaurants.forEach((restaurant) => {
+      console.log(restaurant.info.name);
+    });
+    this.removedRestaurants.forEach((restaurant) => {
+      console.log(restaurant.info.name);
     });
     console.log(this.openRestaurants);
     console.log(this.removedRestaurants);
