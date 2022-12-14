@@ -44,6 +44,10 @@ class Restaurant {
     });
     this.infoWindow = infoWindow;
   }
+
+  changeOpenStatus() {
+    this.isOpen = true;
+  }
 }
 
 export default Restaurant;

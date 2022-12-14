@@ -85,9 +85,9 @@ function startApp() {
 
 function lunchRoulette() {
   if (randomRestaurantMarker) { randomRestaurantMarker.setMap(null); }
-  const randomIndex: number = Math.floor(Math.random() * (mapsService.openRestaurants.length - 1));
+  const randomIndex: number = Math.floor(Math.random() * (mapsService.restaurants.length - 1));
   console.log(randomIndex);
-  const randomRestaurant = mapsService.openRestaurants[randomIndex];
+  const randomRestaurant = mapsService.restaurants[randomIndex];
   const coords = randomRestaurant.info.geometry.location;
   const lat: number = coords.lat();
   const lng: number = coords.lng();
