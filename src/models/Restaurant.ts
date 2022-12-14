@@ -46,7 +46,7 @@ class Restaurant {
   }
 
   changeOpenStatus() {
-    this.isOpen = true;
+    this.isOpen = !this.isOpen;
   }
 }
 
