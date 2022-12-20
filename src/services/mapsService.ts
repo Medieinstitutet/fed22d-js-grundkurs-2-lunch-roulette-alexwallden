@@ -154,6 +154,13 @@ class MapsService {
   getOpenRestaurants() {
     return this.openRestaurants;
   }
+
+  clearRestaurants() {
+    this.restaurants = [];
+    this.openRestaurants = [];
+    this.closedRestaurants = [];
+    this.retrievePromises = [];
+  }
 }
 
 export default MapsService;

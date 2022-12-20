@@ -24,6 +24,8 @@ class Restaurant {
 
   distance: number;
 
+  id: number;
+
   isOpen: boolean;
 
   constructor(info: any) {
@@ -33,6 +35,7 @@ class Restaurant {
     this.createMarker();
     this.createInfoWindow();
     this.isOpen = false;
+    this.id = Math.floor(Math.random() * 100_000);
   }
 
   createMarker() {

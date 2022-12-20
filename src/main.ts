@@ -24,14 +24,16 @@ const mapContainer: HTMLDivElement | null = document.querySelector('#map');
 const restaurantsList: HTMLUListElement | null = document.querySelector('#restaurants-list');
 const loadingModal: HTMLDivElement | null = document.querySelector('.loading-modal');
 const modalText: HTMLHeadingElement | null = document.querySelector('#modal-text');
-const showBtn: HTMLButtonElement | null = document.querySelector('#show');
+const controls: HTMLDivElement | null = document.querySelector('.controls');
 const startButton: HTMLElement | null = document.querySelector('#start-btn');
 const displayButton: HTMLElement | null = document.querySelector('#display-btn');
 const removeButton: HTMLElement | null = document.querySelector('#remove-btn');
 const rouletteButton: HTMLElement | null = document.querySelector('#roulette-btn');
 const rangeInputs: HTMLElement[] = Array.from(document.querySelectorAll('input[name="range-input"]'));
+const form: HTMLFormElement | null = document.querySelector('#form');
 const mapsService: MapsService = new MapsService(mapContainer);
 const timeLine = gsap.timeline({ repeat: -1 });
+const toggleShowArray: any[] = [mapContainer, startButton, controls];
 
 let userCoordinatesSuccess: any;
 let userMarker: any;
@@ -42,9 +44,9 @@ let showModal = false;
 
 function toggleModal() {
   showModal = !showModal;
+  loadingModal?.classList.toggle('hidden');
   if (showModal) {
     timeLine.play();
-    loadingModal?.classList.remove('hidden');
     timeLine.to('.spinner', {
       rotate: 360,
       repeat: -1,
@@ -52,7 +54,6 @@ function toggleModal() {
       ease: 'none',
     });
   } else {
-    loadingModal?.classList.add('hidden');
     timeLine.pause();
   }
 }
@@ -64,8 +65,6 @@ function setLoadingText(text: string) {
   }, '<');
 }
 
-showBtn?.addEventListener('click', toggleModal);
-
 function createUserMarker() {
   const marker = new google.maps.Marker({
     position: userCoordinates,
@@ -73,32 +72,22 @@ function createUserMarker() {
   userMarker = marker;
 }
 
-function setRadius(e: Event) {
-  const { target } = e;
-  if (target) {
-    mapsService.removeMarkers();
-    if (randomRestaurantMarker) {
-      randomRestaurantMarker.setMap(null);
-    }
-    radius = Number((target as HTMLOptionElement).value);
-    if (userCoordinates) {
-      (async () => {
-        await mapsService.retrieveRestaurants(userCoordinates, radius);
-      })()
-        .then(() => {})
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  }
+function showOrHide(elementsArray: any[]) {
+  elementsArray.forEach((element: any) => {
+    element.classList.toggle('hidden');
+    // if (element.classList.contains('hidden')) {
+    //   element.classList.remove('hidden');
+    // } else {
+    //   element.classList.add('hidden');
+    // }
+  });
 }
 
-rangeInputs.forEach((input) => {
-  input.addEventListener('click', setRadius);
-});
+console.log(startButton?.classList.contains('start-btn'));
 
 function startApp() {
-  mapContainer?.classList.remove('hidden');
+  mapsService.clearRestaurants();
+  showOrHide(toggleShowArray);
   if (restaurantsList) { restaurantsList.innerHTML = ''; }
   console.log('Startar appen');
   (async () => {
@@ -124,8 +113,9 @@ function startApp() {
           restaurant.calculateDistance(userMarker);
           const distanceUnit: string = restaurant.distance > 10 ? 'm' : 'km';
           restaurantsList.innerHTML += /* html */ `
-          <li>${restaurant.info.name} Avstånd: ${restaurant.distance}${distanceUnit}</li>`;
+          <li data-id="${restaurant.id}">${restaurant.info.name} Avstånd: ${restaurant.distance}${distanceUnit}</li>`;
         });
+        mapsService.setMarkers();
         toggleModal();
       } else if (app && !userCoordinatesSuccess) {
         app.innerHTML = 'Du behöver aktivera platstjänster';
@@ -137,11 +127,29 @@ function startApp() {
     });
 }
 
+function setRadius(e: Event) {
+  const { target } = e;
+  if (target) {
+    mapsService.removeMarkers();
+    if (randomRestaurantMarker) {
+      randomRestaurantMarker.setMap(null);
+    }
+    radius = Number((target as HTMLOptionElement).value);
+    if (userCoordinates) {
+      startApp();
+    }
+  }
+}
+
+rangeInputs.forEach((input) => {
+  input.addEventListener('click', setRadius);
+});
+
 function lunchRoulette() {
   if (randomRestaurantMarker) {
     randomRestaurantMarker.setMap(null);
   }
-  const randomIndex: number = Math.floor(Math.random() * (mapsService.restaurants.length - 1));
+  const randomIndex: number = Math.floor(Math.random() * (mapsService.openRestaurants.length - 1));
   console.log(randomIndex);
   const randomRestaurant = mapsService.getOpenRestaurants()[randomIndex];
   randomRestaurantMarker = randomRestaurant.marker;
