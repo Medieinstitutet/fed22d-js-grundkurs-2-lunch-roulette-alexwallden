@@ -8,12 +8,14 @@
     <title>Lunch roulette</title>
   </head>
   <body>
-    <main>
+    <header>
       <h1>Lunch roulette</h1>
+    </header>      
+    <main>
       <div class="app" id="app">
         Laddar din position...
       </div> 
-      <div id="map"></div>
+      <div id="map" class="map"></div>
       <form>
         <label for="">
           500m
@@ -25,7 +27,7 @@
         </label>
         <label for="">
           3km
-          <input type="radio" name="range-input" value="3000">
+          <input type="radio" name="range-input" value="5000">
         </label>
       </form>
       <button id="start-btn">Starta appen</button>
@@ -35,6 +37,7 @@
       <button id="roulette-btn">Lunch-roulette!</button>
       <br>
       <button id="remove-btn">Ta bort markers</button>
+      <ul id="restaurants-list"></ul>
     </main>
 
     <!-- TODO
