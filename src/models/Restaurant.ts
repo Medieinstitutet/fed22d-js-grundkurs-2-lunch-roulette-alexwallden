@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
@@ -19,21 +20,26 @@ class Restaurant {
 
   details: any;
 
+  coordinates: { lat: number; lng: number };
+
+  distance: any;
+
   isOpen: boolean;
 
   constructor(info: any) {
     this.info = info;
+    this.coordinates = { lat: this.info.geometry.location.lat(), lng: this.info.geometry.location.lng() };
     this.createMarker();
     this.createInfoWindow();
     this.isOpen = false;
   }
 
   createMarker() {
-    const coords = this.info.geometry.location;
-    const lat: number = coords.lat();
-    const lng: number = coords.lng();
+    // const coords = this.info.geometry.location;
+    // const lat: number = coords.lat();
+    // const lng: number = coords.lng();
     const marker = new google.maps.Marker({
-      position: { lat, lng },
+      position: this.coordinates,
     });
     this.marker = marker;
   }
@@ -47,6 +53,27 @@ class Restaurant {
 
   changeOpenStatus() {
     this.isOpen = !this.isOpen;
+  }
+
+  calculateDistance(userMarker: any) {
+    const R = 6371.0710; // Radius of the Earth in miles
+    const rlat1 = userMarker.position.lat() * (Math.PI / 180); // Convert degrees to radians
+    const rlat2 = this.marker.position.lat() * (Math.PI / 180); // Convert degrees to radians
+    const difflat = rlat2 - rlat1; // Radian difference (latitudes)
+    const difflon = (this.marker.position.lng() - userMarker.position.lng()) * (Math.PI / 180); // Radian difference (longitudes)
+
+    const d = 2 * R * Math.asin(
+      Math.sqrt(
+        Math.sin(difflat / 2) * Math.sin(difflat / 2) + Math.cos(rlat1) * Math.cos(rlat2) * Math.sin(difflon / 2) * Math.sin(difflon / 2),
+      ),
+    );
+    if (d < 1) {
+      console.log(Math.floor(d * 1000));
+    } else if (d >= 1) {
+      console.log(Math.round(d * 10) / 10);
+    }
+    this.distance = d;
+    console.log(this.distance);
   }
 }
 

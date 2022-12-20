@@ -1,9 +1,8 @@
-/* eslint-disable no-await-in-loop */
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-
 import Coordinates from '../models/Coordinates';
 import Restaurant from '../models/Restaurant';
 import wait from '../inventory/helpers';
@@ -64,8 +63,8 @@ class MapsService {
             case 1000:
               this.map.setZoom(14);
               break;
-            case 3000:
-              this.map.setZoom(12);
+            case 5000:
+              this.map.setZoom(7);
               break;
             default:
               this.map.setZoom(12);
@@ -84,7 +83,7 @@ class MapsService {
       const restaurant = this.restaurants[index];
       const request = { placeId: restaurant.info.place_id, fields: ['name', 'opening_hours', 'utc_offset_minutes'] };
       const service = new google.maps.places.PlacesService(this.map);
-      const retrievePromise: Promise<any> = new Promise((resolve, reject) => {
+      const retrievePromise: Promise<any> = new Promise((resolve) => {
         service.getDetails(request, (place: any, status: any) => {
           console.log('Status:', status);
           if (status === google.maps.places.PlacesServiceStatus.OK) {
@@ -118,9 +117,14 @@ class MapsService {
             } else if (!isOpenNow) {
               this.closedRestaurants.push(restaurant);
             }
+          } else {
+            this.closedRestaurants.push(restaurant);
           }
         }
         console.log(this.restaurants);
+        this.restaurants.forEach((restaurant) => {
+          if (restaurant.details.opening_hours) { console.log(restaurant.info.name, restaurant.details.opening_hours.isOpen()); }
+        });
         console.log(this.openRestaurants);
         console.log(this.closedRestaurants);
       })
@@ -151,6 +155,10 @@ class MapsService {
     this.openRestaurants.forEach((restaurant) => {
       restaurant.marker.setMap(null);
     });
+  }
+
+  getOpenRestaurants() {
+    return this.openRestaurants;
   }
 }
 

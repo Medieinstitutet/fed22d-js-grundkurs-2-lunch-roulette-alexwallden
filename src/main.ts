@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
@@ -16,6 +17,7 @@ declare global {
 declare const google: any;
 const app: HTMLDivElement | null = document.querySelector('#app');
 const mapContainer: HTMLDivElement | null = document.querySelector('#map');
+const restaurantsList: HTMLUListElement | null = document.querySelector('#restaurants-list');
 const startButton: HTMLElement | null = document.querySelector('#start-btn');
 const displayButton: HTMLElement | null = document.querySelector('#display-btn');
 const removeButton: HTMLElement | null = document.querySelector('#remove-btn');
@@ -37,19 +39,22 @@ function createUserMarker() {
 }
 
 function setRadius(e: Event) {
-  mapsService.removeMarkers();
-  if (randomRestaurantMarker) { randomRestaurantMarker.setMap(null); }
   const { target } = e;
   if (target) {
+    mapsService.removeMarkers();
+    if (randomRestaurantMarker) {
+      randomRestaurantMarker.setMap(null);
+    }
     radius = Number((target as HTMLOptionElement).value);
-    (async () => {
-      await mapsService.retrieveRestaurants(userCoordinates as Coordinates, radius);
-    })()
-      .then(() => {
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (userCoordinates) {
+      (async () => {
+        await mapsService.retrieveRestaurants(userCoordinates, radius);
+      })()
+        .then(() => {})
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }
 }
 
@@ -58,21 +63,30 @@ rangeInputs.forEach((input) => {
 });
 
 function startApp() {
+  if (restaurantsList) { restaurantsList.innerHTML = ''; }
   console.log('Startar appen');
   (async () => {
     userCoordinates = new Coordinates();
     userCoordinatesSuccess = await userCoordinates.getUserCoordinates();
+    if (userCoordinatesSuccess && app && userCoordinates) {
+      console.log('Koordinater hämtade!');
+      app.innerHTML = `Din position är ${userCoordinates.lat} och ${userCoordinates.lng}`;
+    }
     await mapsService.retrieveRestaurants(userCoordinates, radius);
   })()
     .then(() => {
-      if (userCoordinatesSuccess && app && userCoordinates) {
-        console.log('Koordinater hämtade!');
-        app.innerHTML = `Din position är ${userCoordinates.lat} och ${userCoordinates.lng}`;
+      if (userCoordinatesSuccess && app && userCoordinates && restaurantsList) {
         createUserMarker();
         mapsService.setMarker(userMarker);
-        mapsService.map.setZoom(15);
+        // mapsService.map.setZoom(15);
         mapsService.map.setCenter(userCoordinates);
         mapsService.attachInfoWindows();
+        const restaurants = mapsService.getOpenRestaurants();
+        restaurants.forEach((restaurant) => {
+          restaurant.calculateDistance(userMarker);
+          restaurantsList.innerHTML += /* html */ `
+          <li>${restaurant.info.name}</li>`;
+        });
       } else if (app && !userCoordinatesSuccess) {
         app.innerHTML = 'Du behöver aktivera platstjänster';
       }
@@ -84,7 +98,9 @@ function startApp() {
 }
 
 function lunchRoulette() {
-  if (randomRestaurantMarker) { randomRestaurantMarker.setMap(null); }
+  if (randomRestaurantMarker) {
+    randomRestaurantMarker.setMap(null);
+  }
   const randomIndex: number = Math.floor(Math.random() * (mapsService.restaurants.length - 1));
   console.log(randomIndex);
   const randomRestaurant = mapsService.restaurants[randomIndex];
