@@ -22,22 +22,23 @@ class Restaurant {
 
   coordinates: { lat: number; lng: number };
 
-  distance: any;
+  distance: number;
+
+  id: number;
 
   isOpen: boolean;
 
   constructor(info: any) {
+    this.distance = 0;
     this.info = info;
     this.coordinates = { lat: this.info.geometry.location.lat(), lng: this.info.geometry.location.lng() };
     this.createMarker();
     this.createInfoWindow();
     this.isOpen = false;
+    this.id = Math.floor(Math.random() * 100_000);
   }
 
   createMarker() {
-    // const coords = this.info.geometry.location;
-    // const lat: number = coords.lat();
-    // const lng: number = coords.lng();
     const marker = new google.maps.Marker({
       position: this.coordinates,
     });
@@ -52,7 +53,7 @@ class Restaurant {
   }
 
   changeOpenStatus() {
-    this.isOpen = !this.isOpen;
+    this.isOpen = true;
   }
 
   calculateDistance(userMarker: any) {
@@ -68,12 +69,10 @@ class Restaurant {
       ),
     );
     if (d < 1) {
-      console.log(Math.floor(d * 1000));
+      this.distance = Math.floor(d * 1000);
     } else if (d >= 1) {
-      console.log(Math.round(d * 10) / 10);
+      this.distance = Math.round(d * 10) / 10;
     }
-    this.distance = d;
-    console.log(this.distance);
   }
 }
 

@@ -64,7 +64,7 @@ class MapsService {
               this.map.setZoom(14);
               break;
             case 5000:
-              this.map.setZoom(7);
+              this.map.setZoom(12);
               break;
             default:
               this.map.setZoom(12);
@@ -121,12 +121,6 @@ class MapsService {
             this.closedRestaurants.push(restaurant);
           }
         }
-        console.log(this.restaurants);
-        this.restaurants.forEach((restaurant) => {
-          if (restaurant.details.opening_hours) { console.log(restaurant.info.name, restaurant.details.opening_hours.isOpen()); }
-        });
-        console.log(this.openRestaurants);
-        console.log(this.closedRestaurants);
       })
       .catch((err) => {
         console.log(err);
@@ -159,6 +153,13 @@ class MapsService {
 
   getOpenRestaurants() {
     return this.openRestaurants;
+  }
+
+  clearRestaurants() {
+    this.restaurants = [];
+    this.openRestaurants = [];
+    this.closedRestaurants = [];
+    this.retrievePromises = [];
   }
 }
 
