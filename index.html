@@ -6,16 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <title>Lunch roulette</title>
-    <script type="module" crossorigin src="/fed22d-js-grundkurs-2-lunch-roulette-alexwallden/assets/index.fc0ee0a2.js"></script>
-    <link rel="stylesheet" href="/fed22d-js-grundkurs-2-lunch-roulette-alexwallden/assets/index.a61d258d.css">
+    <script type="module" crossorigin src="/fed22d-js-grundkurs-2-lunch-roulette-alexwallden/assets/index.9862bef9.js"></script>
+    <link rel="stylesheet" href="/fed22d-js-grundkurs-2-lunch-roulette-alexwallden/assets/index.ebd8fc0c.css">
   </head>
   <body>
-    <main>
+    <header>
       <h1>Lunch roulette</h1>
+    </header>      
+    <main>
       <div class="app" id="app">
         Laddar din position...
       </div> 
-      <div id="map"></div>
+      <div id="map" class="map"></div>
       <form>
         <label for="">
           500m
@@ -27,7 +29,7 @@
         </label>
         <label for="">
           3km
-          <input type="radio" name="range-input" value="3000">
+          <input type="radio" name="range-input" value="5000">
         </label>
       </form>
       <button id="start-btn">Starta appen</button>
@@ -37,6 +39,7 @@
       <button id="roulette-btn">Lunch-roulette!</button>
       <br>
       <button id="remove-btn">Ta bort markers</button>
+      <ul id="restaurants-list"></ul>
     </main>
 
     <!-- TODO
