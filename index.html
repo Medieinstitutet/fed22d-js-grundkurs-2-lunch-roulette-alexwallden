@@ -17,15 +17,15 @@
       </div> 
       <div id="map" class="map"></div>
       <form>
-        <label for="">
+        <label>
           500m
           <input type="radio" name="range-input" value="500" checked>
         </label>
-        <label for="">
+        <label>
           1km
           <input type="radio" name="range-input" value="1000">
         </label>
-        <label for="">
+        <label>
           3km
           <input type="radio" name="range-input" value="5000">
         </label>
@@ -38,6 +38,15 @@
       <br>
       <button id="remove-btn">Ta bort markers</button>
       <ul id="restaurants-list"></ul>
+      <div class="loading-modal hidden">
+        <div class="container">
+          <div class="text-container">
+            <h1 id="modal-text"><span class="loading-dots">...</span></h1>
+          </div>
+          <div class="spinner"></div>
+        </div>
+      </div>
+      <button id="show">Visa modal</button>
     </main>
 
     <!-- TODO
