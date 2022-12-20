@@ -144,12 +144,7 @@ function lunchRoulette() {
   const randomIndex: number = Math.floor(Math.random() * (mapsService.restaurants.length - 1));
   console.log(randomIndex);
   const randomRestaurant = mapsService.getOpenRestaurants()[randomIndex];
-  const coords = randomRestaurant.info.geometry.location;
-  const lat: number = coords.lat();
-  const lng: number = coords.lng();
-  randomRestaurantMarker = new google.maps.Marker({
-    position: { lat, lng },
-  });
+  randomRestaurantMarker = randomRestaurant.marker;
   mapsService.removeMarkers();
   mapsService.setMarker(randomRestaurantMarker);
 }
