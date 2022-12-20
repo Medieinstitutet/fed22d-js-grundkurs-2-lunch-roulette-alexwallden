@@ -10,7 +10,6 @@ import gsap from 'gsap';
 import { TextPlugin } from 'gsap/TextPlugin';
 import Coordinates from './models/Coordinates';
 import MapsService from './services/mapsService';
-// import mockRestaurants from './inventory/mockRestaurants.json';
 
 gsap.registerPlugin(TextPlugin);
 declare global {
@@ -99,6 +98,7 @@ rangeInputs.forEach((input) => {
 });
 
 function startApp() {
+  mapContainer?.classList.remove('hidden');
   if (restaurantsList) { restaurantsList.innerHTML = ''; }
   console.log('Startar appen');
   (async () => {
