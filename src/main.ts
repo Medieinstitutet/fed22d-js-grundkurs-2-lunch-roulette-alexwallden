@@ -30,7 +30,7 @@ const displayButton: HTMLElement | null = document.querySelector('#display-btn')
 const removeButton: HTMLElement | null = document.querySelector('#remove-btn');
 const rouletteButton: HTMLElement | null = document.querySelector('#roulette-btn');
 const rangeInputs: HTMLElement[] = Array.from(document.querySelectorAll('input[name="range-input"]'));
-const form: HTMLFormElement | null = document.querySelector('#form');
+// const form: HTMLFormElement | null = document.querySelector('#form');
 const mapsService: MapsService = new MapsService(mapContainer);
 const timeLine = gsap.timeline({ repeat: -1 });
 const toggleShowArray: any[] = [mapContainer, startButton, controls];
