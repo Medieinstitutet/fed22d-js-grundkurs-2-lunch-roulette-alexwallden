@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <title>Lunch roulette</title>
-    <script type="module" crossorigin src="/fed22d-js-grundkurs-2-lunch-roulette-alexwallden/assets/index.9862bef9.js"></script>
-    <link rel="stylesheet" href="/fed22d-js-grundkurs-2-lunch-roulette-alexwallden/assets/index.ebd8fc0c.css">
+    <script type="module" crossorigin src="/fed22d-js-grundkurs-2-lunch-roulette-alexwallden/assets/index.a312b11c.js"></script>
+    <link rel="stylesheet" href="/fed22d-js-grundkurs-2-lunch-roulette-alexwallden/assets/index.881c3cf5.css">
   </head>
   <body>
     <header>
@@ -15,31 +15,39 @@
     </header>      
     <main>
       <div class="app" id="app">
-        Laddar din position...
       </div> 
-      <div id="map" class="map"></div>
-      <form>
-        <label for="">
-          500m
-          <input type="radio" name="range-input" value="500" checked>
-        </label>
-        <label for="">
-          1km
-          <input type="radio" name="range-input" value="1000">
-        </label>
-        <label for="">
-          3km
-          <input type="radio" name="range-input" value="5000">
-        </label>
-      </form>
-      <button id="start-btn">Starta appen</button>
-      <br>
-      <button id="display-btn">Visa alla restauranger</button>
-      <br>
-      <button id="roulette-btn">Lunch-roulette!</button>
-      <br>
-      <button id="remove-btn">Ta bort markers</button>
+      <button id="start-btn" class="start-btn">Starta appen</button>
+      <div id="map" class="map hidden"></div>
+      <div class="controls hidden">
+        <form id="form" class="hidden">
+          <label>
+            500m
+            <input type="radio" name="range-input" value="500" checked>
+          </label>
+          <label>
+            1km
+            <input type="radio" name="range-input" value="1000">
+          </label>
+          <label>
+            3km
+            <input type="radio" name="range-input" value="5000">
+          </label>
+        </form>
+        <div class="control-btns">
+          <button id="display-btn">Visa alla restauranger</button>
+          <button id="roulette-btn">Lunch-roulette!</button>
+          <button id="remove-btn">Ta bort markers</button>
+        </div>
+      </div>
       <ul id="restaurants-list"></ul>
+      <div class="loading-modal hidden">
+        <div class="container">
+          <div class="text-container">
+            <h1 id="modal-text"><span class="loading-dots">...</span></h1>
+          </div>
+          <div class="spinner"></div>
+        </div>
+      </div>
     </main>
 
     <!-- TODO
