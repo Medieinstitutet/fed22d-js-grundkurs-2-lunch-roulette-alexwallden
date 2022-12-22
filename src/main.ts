@@ -8,7 +8,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import './style/style.scss';
-import gsap, { random } from 'gsap';
+import gsap from 'gsap';
 import { TextPlugin } from 'gsap/TextPlugin';
 import Coordinates from './models/Coordinates';
 import MapsService from './services/mapsService';
