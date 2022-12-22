@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@types/gsap': ^3.0.0
   '@typescript-eslint/eslint-plugin': ^5.0.0
   eslint: ^8.0.1
   eslint-config-airbnb: ^19.0.4
@@ -24,6 +25,7 @@ dependencies:
   gsap: 3.11.3
 
 devDependencies:
+  '@types/gsap': 3.0.0
   '@typescript-eslint/eslint-plugin': 5.44.0_fnsv2sbzcckq65bwfk7a5xwslu
   eslint: 8.28.0
   eslint-config-airbnb: 19.0.4_vt5pco6i6xyxmp2zptq3cuddue
@@ -165,6 +167,13 @@ packages:
     dependencies:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.13.0
+    dev: true
+
+  /@types/gsap/3.0.0:
+    resolution: {integrity: sha512-BbWLi4WRHGze4C8NV7U7yRevuBFiPkPZZyGa0rryanvh/9HPUFXTNBXsGQxJZJq7Ix7j4RXMYodP3s+OsqCErg==}
+    deprecated: This is a stub types definition. gsap provides its own type definitions, so you do not need this installed.
+    dependencies:
+      gsap: 3.11.3
     dev: true
 
   /@types/json-schema/7.0.11:
@@ -1520,7 +1529,6 @@ packages:
 
   /gsap/3.11.3:
     resolution: {integrity: sha512-xc/iIJy+LWiMbRa4IdMtdnnKa/7PXEK6NNzV71gdOYUVeTZN7UWnLU0fB7Hi1iwiz4ZZoYkBZPPYGg+2+zzFHA==}
-    dev: false
 
   /hard-rejection/2.1.0:
     resolution: {integrity: sha512-VIZB+ibDhx7ObhAe7OVtoEbuP4h/MuOTHJ+J8h/eBXotJYl0fBgR72xDFCKgIh22OJZIOVNxBMWuhAr10r8HdA==}
