@@ -22,7 +22,6 @@ declare global {
 }
 
 declare const google: any;
-const app: HTMLDivElement | null = document.querySelector('#app');
 const mapContainer: HTMLDivElement | null = document.querySelector('#map');
 const restaurantsList: HTMLUListElement | null = document.querySelector('#restaurants-list');
 const loadingModal: HTMLDivElement | null = document.querySelector('.loading-modal');
@@ -116,15 +115,14 @@ function startApp() {
       userCoordinates = new Coordinates();
       userCoordinatesSuccess = await userCoordinates.getUserCoordinates();
     }
-    if (userCoordinatesSuccess && app && userCoordinates) {
+    if (userCoordinatesSuccess && userCoordinates) {
       console.log('Koordinater hämtade!');
-      app.innerHTML = `Din position är ${userCoordinates.lat} och ${userCoordinates.lng}`;
     }
     setLoadingText('Hämtar restauranger i närheten');
     await mapsService.retrieveRestaurants(userCoordinates, radius);
   })()
     .then(() => {
-      if (userCoordinatesSuccess && app && userCoordinates && restaurantsList) {
+      if (userCoordinatesSuccess && userCoordinates && restaurantsList) {
         createUserMarker();
         mapsService.setMarker(userMarker);
         mapsService.map.setCenter(userCoordinates);
@@ -138,9 +136,8 @@ function startApp() {
         });
         mapsService.setMarkers();
         toggleModal();
-      } else if (app && !userCoordinatesSuccess) {
+      } else if (!userCoordinatesSuccess) {
         spinner?.classList.toggle('hidden');
-        app.innerHTML = 'Du behöver aktivera platstjänster';
         timeLine.pause();
         setLoadingText('Du behöver aktivera platstjänster');
       }
@@ -185,7 +182,7 @@ async function lunchRoulette(): Promise<any> {
 
   if (listItems) {
     let counter = 0;
-    let waitTime = 50;
+    let waitTime = 30;
     for (let i = 0; i < listItems?.length;) {
       const listItem = listItems[i];
       await wait(waitTime);
@@ -193,10 +190,11 @@ async function lunchRoulette(): Promise<any> {
       listItem.style.color = 'red';
       previousListItem = listItem;
       i += 1;
+      waitTime += 7;
       if (i === listItems.length) {
         i = 0;
         counter += 1;
-        waitTime += 50;
+        // waitTime += 50;
       }
       if (counter === 3 && i === randomIndex + 1) {
         i = listItems.length;
