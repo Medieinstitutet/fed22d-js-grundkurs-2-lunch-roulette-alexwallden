@@ -63,7 +63,7 @@ class MapsService {
             case 1000:
               this.map.setZoom(14);
               break;
-            case 5000:
+            case 3000:
               this.map.setZoom(12);
               break;
             default:

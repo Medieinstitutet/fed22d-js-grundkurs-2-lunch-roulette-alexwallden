@@ -33,7 +33,6 @@ class Restaurant {
     this.info = info;
     this.coordinates = { lat: this.info.geometry.location.lat(), lng: this.info.geometry.location.lng() };
     this.createMarker();
-    this.createInfoWindow();
     this.isOpen = false;
     this.id = Math.floor(Math.random() * 100_000);
   }
@@ -45,9 +44,12 @@ class Restaurant {
     this.marker = marker;
   }
 
-  createInfoWindow() {
+  createInfoWindow(distanceUnit: string) {
     const infoWindow: IInfoWindow = new google.maps.InfoWindow({
-      content: `<h2 style="color: black">${this.info.name as string}</h2>`,
+      content: `
+      <h2 style="color: black">${this.info.name as string}</h2>
+      <p>Avstånd: ${this.distance}${distanceUnit}</p>
+      `,
     });
     this.infoWindow = infoWindow;
   }
@@ -70,8 +72,10 @@ class Restaurant {
     );
     if (d < 1) {
       this.distance = Math.floor(d * 1000);
+      this.createInfoWindow('m');
     } else if (d >= 1) {
       this.distance = Math.round(d * 10) / 10;
+      this.createInfoWindow('km');
     }
   }
 }
