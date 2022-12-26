@@ -19,7 +19,7 @@ gsap.registerPlugin(TextPlugin);
 
 declare global {
   interface Window {
-    runApp: () => void;
+    initMap: () => void;
   }
 }
 
@@ -252,4 +252,4 @@ removeButton?.addEventListener('click', () => mapsService.removeMarkers(), { pas
 
 retrieveRestaurantsBtn?.addEventListener('click', runApp);
 
-window.initMap = runApp;
+// window.initMap = mapsService.initMap;
