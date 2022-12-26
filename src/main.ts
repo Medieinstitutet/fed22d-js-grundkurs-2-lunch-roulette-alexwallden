@@ -16,9 +16,10 @@ import wait from './inventory/helpers';
 import Restaurant from './models/Restaurant';
 
 gsap.registerPlugin(TextPlugin);
+
 declare global {
   interface Window {
-    initMap: () => void;
+    runApp: () => void;
   }
 }
 
@@ -126,7 +127,6 @@ function runApp() {
       console.log('Koordinater hämtade!');
     }
     setLoadingText('Hämtar restauranger i närheten');
-    // await wait(1000 * 240);
     await mapsService.retrieveRestaurants(userCoordinates, radius);
   })()
     .then(() => {
@@ -251,3 +251,5 @@ rouletteButton?.addEventListener('click', lunchRoulette, { passive: true });
 removeButton?.addEventListener('click', () => mapsService.removeMarkers(), { passive: true });
 
 retrieveRestaurantsBtn?.addEventListener('click', runApp);
+
+window.initMap = runApp;
