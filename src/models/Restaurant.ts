@@ -7,8 +7,10 @@
 declare const google: any;
 
 interface IInfoWindow {
+  content: string;
   open: (map: any, marker: any) => void;
   close: (map: any, marker: any) => void;
+  setContent: (content: string) => void;
 }
 
 class Restaurant {
@@ -45,12 +47,21 @@ class Restaurant {
   }
 
   createInfoWindow(distanceUnit: string) {
+    const { website }: { website: string } = this.details;
     const infoWindow: IInfoWindow = new google.maps.InfoWindow({
-      content: `
+      content: /* html */`
       <h2 style="color: black">${this.info.name as string}</h2>
       <p>Avstånd: ${this.distance}${distanceUnit}</p>
       `,
     });
+    if (website) {
+      console.log(true);
+      infoWindow.setContent(/* html */ `
+      ${infoWindow.content}
+      <br>
+      <a href="${website}" rel="noopener noreferrer" target="_blank">Hemsida</a>
+      `);
+    }
     this.infoWindow = infoWindow;
   }
 
