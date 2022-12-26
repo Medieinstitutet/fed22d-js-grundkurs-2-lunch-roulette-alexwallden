@@ -33,7 +33,7 @@ class MapsService {
   initMap(mapContainer: HTMLDivElement | null): void {
     this.map = new google.maps.Map(mapContainer, {
       zoom: 4,
-      center: { lat: 63.3297408, lng: 18.0158464 }, // TODO ändra koordinater
+      center: { lat: 63.3297408, lng: 18.0158464 },
     });
   }
 
