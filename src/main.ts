@@ -44,7 +44,7 @@ const toggleShowArray: any[] = [mapContainer, startButtonContainer, controls];
 
 let userCoordinatesSuccess: any;
 let userMarker: any;
-let radius = 10;
+let radius = 500;
 console.log('BYT RADIUS');
 let userCoordinates: Coordinates | null = null;
 let randomRestaurantMarker: any;
@@ -88,6 +88,7 @@ function setLoadingText(text: string) {
 function createUserMarker() {
   const marker = new google.maps.Marker({
     position: userCoordinates,
+    label: 'Din position',
   });
   userMarker = marker;
 }
@@ -149,7 +150,7 @@ function runApp() {
           listHeading?.classList.remove('hidden');
           const restaurants = mapsService.getOpenRestaurants();
           restaurants.forEach((restaurant) => {
-            restaurant.calculateDistance(userMarker);
+            restaurant.calculateDistance(userMarker, userCoordinates);
             const distanceUnit: string = restaurant.distance > 10 ? 'm' : 'km';
             restaurantsList.innerHTML += /* html */ `
           <li data-id="${restaurant.id}">${restaurant.info.name} Avstånd: ${restaurant.distance}${distanceUnit}</li>`;

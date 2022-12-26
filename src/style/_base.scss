@@ -65,7 +65,7 @@ main {
   flex-direction: column;
   align-content: space-between;
   align-items: center;
-  font-size: 2rem;
+  font-size: 1rem;
   margin-top: 15px;
   margin-bottom: 20px;
   gap: 10px;
@@ -94,7 +94,10 @@ main {
     color: $base-text;
 
     .control-btn {
+      position: relative;
+      bottom: .7rem;
       background: none;
+      font-size: 2rem;
 
     }
   }
@@ -104,7 +107,7 @@ main {
     justify-content: space-around;
     flex-direction: column;
     width: 300px;
-
+    font-size: 1.3rem;
   }
 }
 

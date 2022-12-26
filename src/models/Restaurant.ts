@@ -1,8 +1,11 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
+
+import Coordinates from './Coordinates';
 
 declare const google: any;
 
@@ -42,20 +45,21 @@ class Restaurant {
   createMarker() {
     const marker = new google.maps.Marker({
       position: this.coordinates,
+      title: this.info.name,
     });
     this.marker = marker;
   }
 
-  createInfoWindow(distanceUnit: string) {
+  createInfoWindow(distanceUnit: string, userCoordinates: Coordinates | null) {
     const { website }: { website: string } = this.details;
     const infoWindow: IInfoWindow = new google.maps.InfoWindow({
       content: /* html */`
       <h2 style="color: black">${this.info.name as string}</h2>
       <p>Avstånd: ${this.distance}${distanceUnit}</p>
+      <a rel="noopener noreferrer" target="_blank" href="https://www.google.com/maps/dir/${userCoordinates!.lat},${userCoordinates!.lng}/${this.coordinates.lat},${this.coordinates.lng}/">Vägbeskrivning</a>
       `,
     });
     if (website) {
-      console.log(true);
       infoWindow.setContent(/* html */ `
       ${infoWindow.content}
       <br>
@@ -69,7 +73,7 @@ class Restaurant {
     this.isOpen = true;
   }
 
-  calculateDistance(userMarker: any) {
+  calculateDistance(userMarker: any, userCoordinates: Coordinates | null) {
     const R = 6371.0710; // Radius of the Earth in miles
     const rlat1 = userMarker.position.lat() * (Math.PI / 180); // Convert degrees to radians
     const rlat2 = this.marker.position.lat() * (Math.PI / 180); // Convert degrees to radians
@@ -83,10 +87,10 @@ class Restaurant {
     );
     if (d < 1) {
       this.distance = Math.floor(d * 1000);
-      this.createInfoWindow('m');
+      this.createInfoWindow('m', userCoordinates);
     } else if (d >= 1) {
       this.distance = Math.round(d * 10) / 10;
-      this.createInfoWindow('km');
+      this.createInfoWindow('km', userCoordinates);
     }
   }
 }
