@@ -8,7 +8,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import './style/style.scss';
-import gsap from 'gsap';
+import gsap, { random } from 'gsap';
 import { TextPlugin } from 'gsap/TextPlugin';
 import Coordinates from './models/Coordinates';
 import MapsService from './services/mapsService';
@@ -24,6 +24,7 @@ declare global {
 }
 
 declare const google: any;
+const app: HTMLDivElement | null = document.querySelector('#app');
 const mapContainer: HTMLDivElement | null = document.querySelector('#map');
 const restaurantsList: HTMLUListElement | null = document.querySelector('#restaurants-list');
 const loadingModal: HTMLDivElement | null = document.querySelector('.loading-modal');
@@ -123,14 +124,15 @@ function runApp() {
       userCoordinates = new Coordinates();
       userCoordinatesSuccess = await userCoordinates.getUserCoordinates();
     }
-    if (userCoordinatesSuccess && userCoordinates) {
+    if (userCoordinatesSuccess && app && userCoordinates) {
       console.log('Koordinater hämtade!');
+      app.innerHTML = `Din position är ${userCoordinates.lat} och ${userCoordinates.lng}`;
     }
     setLoadingText('Hämtar restauranger i närheten');
     await mapsService.retrieveRestaurants(userCoordinates, radius);
   })()
     .then(() => {
-      if (userCoordinatesSuccess && userCoordinates && restaurantsList) {
+      if (userCoordinatesSuccess && app && userCoordinates && restaurantsList) {
         createUserMarker();
         mapsService.setMarker(userMarker);
         mapsService.map.setCenter(userCoordinates);
@@ -154,12 +156,12 @@ function runApp() {
             const distanceUnit: string = restaurant.distance > 10 ? 'm' : 'km';
             restaurantsList.innerHTML += /* html */ `
           <li data-id="${restaurant.id}">${restaurant.info.name} Avstånd: ${restaurant.distance}${distanceUnit}</li>`;
-          });
-          mapsService.setMarkers();
-          toggleModal();
-        }
+        });
+        mapsService.setMarkers();
+        toggleModal();
       } else if (!userCoordinatesSuccess) {
         spinner?.classList.toggle('hidden');
+        app.innerHTML = 'Du behöver aktivera platstjänster';
         timeLine.pause();
         setLoadingText('Du behöver aktivera platstjänster');
       }
@@ -203,7 +205,7 @@ async function lunchRoulette(): Promise<any> {
 
   if (listItems) {
     let counter = 0;
-    let waitTime = 30;
+    let waitTime = 50;
     for (let i = 0; i < listItems?.length;) {
       const listItem = listItems[i];
       await wait(waitTime);
