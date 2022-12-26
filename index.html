@@ -5,8 +5,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Tangerine:wght@700&display=swap"
     rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <meta charset="UTF-8" />
   <link rel="icon" type="image/ico" href="/favicon.ico" />
   <meta name="description" content="lunch roulette food restaurants nearby options">
@@ -16,10 +17,9 @@
 </head>
 
 <body>
-  <div class="bg-image"></div>
-  <header>
+  <!-- <header>
     <h1>Lunch roulette</h1>
-  </header>
+  </header> -->
   <main>
     <div class="start-btn-container">
       <button id="start-btn" class="start-btn">Starta appen</button>
@@ -39,30 +39,32 @@
           3km
           <input type="radio" name="range-input" value="3000">
         </label>
+        <button id="retrieve-btn" class="control-btn" disabled><i class="fa fa-refresh"></i></button>
       </form>
       <div class="control-btns">
-        <button id="display-btn">Visa alla restauranger</button>
-        <button id="roulette-btn">Lunch-roulette!</button>
-        <button id="remove-btn">Ta bort markers</button>
+        <!-- <button id="display-btn">Visa alla restauranger</button> -->
+        <button id="roulette-btn" class="control-btn">Lunch-roulette!</button>
+        <!-- <button id="remove-btn">Ta bort markers</button> -->
       </div>
     </div>
+    <h2 id="list-heading" class="hidden">Restauranger som är öppna:</h2>
     <ul id="restaurants-list"></ul>
-    <div class="loading-modal hidden">
-      <div class="container">
-        <div class="text-container">
-          <h1 id="modal-text"><span class="loading-dots">...</span></h1>
-        </div>
-        <div class="spinner"></div>
-      </div>
-    </div>
   </main>
+  <div class="loading-modal hidden">
+    <div class="modal-container">
+      <div class="text-container">
+        <h1 id="modal-text"><span class="loading-dots">...</span></h1>
+      </div>
+      <div class="spinner"></div>
+    </div>
+  </div>
 
   <!-- TODO
     - Validera HTML (kopiera den renderade HTML-koden): https://validator.w3.org/#validate_by_input
     - Kontrollera tillgänglighet: https://www.a11yproject.com/checklist/ & Chrome Lighthouse/Firefox Accessibility Tools
     - Validera genererade CSS: https://jigsaw.w3.org/css-validator/#validate_by_input
     -->
-  <script
+  <script defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAyyGt65_xY4awnkM55WP482gN_e8_FhVo&v=weekly&libraries=places"></script>
   <script type="module" src="/src/main.ts"></script>
   <!-- <script async

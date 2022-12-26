@@ -13,6 +13,7 @@ import { TextPlugin } from 'gsap/TextPlugin';
 import Coordinates from './models/Coordinates';
 import MapsService from './services/mapsService';
 import wait from './inventory/helpers';
+import Restaurant from './models/Restaurant';
 
 gsap.registerPlugin(TextPlugin);
 declare global {
@@ -34,6 +35,8 @@ const displayButton: HTMLElement | null = document.querySelector('#display-btn')
 const removeButton: HTMLElement | null = document.querySelector('#remove-btn');
 const rouletteButton: HTMLElement | null = document.querySelector('#roulette-btn');
 const rangeInputs: HTMLElement[] = Array.from(document.querySelectorAll('input[name="range-input"]'));
+const retrieveRestaurantsBtn: HTMLButtonElement | null = document.querySelector('#retrieve-btn');
+const listHeading: HTMLHeadingElement | null = document.querySelector('#list-heading');
 // const form: HTMLFormElement | null = document.querySelector('#form');
 const mapsService: MapsService = new MapsService(mapContainer);
 const timeLine = gsap.timeline({ repeat: -1 });
@@ -42,6 +45,7 @@ const toggleShowArray: any[] = [mapContainer, startButtonContainer, controls];
 let userCoordinatesSuccess: any;
 let userMarker: any;
 let radius = 500;
+console.log('BYT RADIUS');
 let userCoordinates: Coordinates | null = null;
 let randomRestaurantMarker: any;
 let showModal = false;
@@ -84,6 +88,7 @@ function setLoadingText(text: string) {
 function createUserMarker() {
   const marker = new google.maps.Marker({
     position: userCoordinates,
+    label: 'Din position',
   });
   userMarker = marker;
 }
@@ -99,11 +104,13 @@ function showOrHide(elementsArray: any[]) {
   });
 }
 
-console.log(startButton?.classList.contains('start-btn'));
-
-function startApp() {
+function runApp() {
+  console.log(radius);
+  listHeading?.classList.add('hidden');
+  retrieveRestaurantsBtn?.setAttribute('disabled', '');
   mapsService.clearRestaurants();
   if (restaurantsList) {
+    mapsService.removeMarkers();
     restaurantsList.innerHTML = '';
   }
   console.log('Startar appen');
@@ -119,6 +126,7 @@ function startApp() {
       console.log('Koordinater hämtade!');
     }
     setLoadingText('Hämtar restauranger i närheten');
+    // await wait(1000 * 240);
     await mapsService.retrieveRestaurants(userCoordinates, radius);
   })()
     .then(() => {
@@ -126,16 +134,30 @@ function startApp() {
         createUserMarker();
         mapsService.setMarker(userMarker);
         mapsService.map.setCenter(userCoordinates);
-        mapsService.attachInfoWindows();
-        const restaurants = mapsService.getOpenRestaurants();
-        restaurants.forEach((restaurant) => {
-          restaurant.calculateDistance(userMarker);
-          const distanceUnit: string = restaurant.distance > 10 ? 'm' : 'km';
-          restaurantsList.innerHTML += /* html */ `
+        if (mapsService.getOpenRestaurants().length === 0 && restaurantsList) {
+          const checkedRadioDistance: string | null | undefined = document.querySelector(
+            'input[name="range-input"]:checked',
+          )?.parentElement?.textContent;
+          if (checkedRadioDistance) {
+            restaurantsList.innerHTML += /* html */ `
+            <li>Det finns inga restauranger inom ${checkedRadioDistance}</li>`;
+          }
+          rouletteButton?.setAttribute('disabled', '');
+          toggleModal();
+        } else {
+          rouletteButton?.removeAttribute('disabled');
+          mapsService.attachInfoWindows();
+          listHeading?.classList.remove('hidden');
+          const restaurants = mapsService.getOpenRestaurants();
+          restaurants.forEach((restaurant) => {
+            restaurant.calculateDistance(userMarker, userCoordinates);
+            const distanceUnit: string = restaurant.distance > 10 ? 'm' : 'km';
+            restaurantsList.innerHTML += /* html */ `
           <li data-id="${restaurant.id}">${restaurant.info.name} Avstånd: ${restaurant.distance}${distanceUnit}</li>`;
-        });
-        mapsService.setMarkers();
-        toggleModal();
+          });
+          mapsService.setMarkers();
+          toggleModal();
+        }
       } else if (!userCoordinatesSuccess) {
         spinner?.classList.toggle('hidden');
         timeLine.pause();
@@ -151,13 +173,9 @@ function startApp() {
 function setRadius(e: Event) {
   const { target } = e;
   if (target) {
-    mapsService.removeMarkers();
-    if (randomRestaurantMarker) {
-      randomRestaurantMarker.setMap(null);
-    }
     radius = Number((target as HTMLOptionElement).value);
-    if (userCoordinates) {
-      startApp();
+    if (retrieveRestaurantsBtn) {
+      retrieveRestaurantsBtn.removeAttribute('disabled');
     }
   }
 }
@@ -167,17 +185,20 @@ rangeInputs.forEach((input) => {
 });
 
 async function lunchRoulette(): Promise<any> {
+  rouletteButton?.setAttribute('disabled', '');
+  window.scrollTo(0, document.body.scrollHeight);
   if (randomRestaurantMarker) {
     randomRestaurantMarker.setMap(null);
   }
   const listItems: HTMLLIElement[] | null = Array.from(document.querySelectorAll('#restaurants-list li'));
-  const randomIndex: number = Math.floor(Math.random() * (mapsService.openRestaurants.length - 1));
+  const openRestaurants: Restaurant[] = mapsService.getOpenRestaurants();
+  const randomIndex: number = Math.floor(Math.random() * (openRestaurants.length));
   console.log(randomIndex);
-  const randomRestaurant = mapsService.getOpenRestaurants()[randomIndex];
+  const randomRestaurant = openRestaurants[randomIndex];
   randomRestaurantMarker = randomRestaurant.marker;
   mapsService.removeMarkers();
   let previousListItem: HTMLLIElement | null = null;
-  console.log(mapsService.getOpenRestaurants());
+  console.log(openRestaurants);
   console.log(listItems);
 
   if (listItems) {
@@ -186,26 +207,36 @@ async function lunchRoulette(): Promise<any> {
     for (let i = 0; i < listItems?.length;) {
       const listItem = listItems[i];
       await wait(waitTime);
-      if (previousListItem) { previousListItem.style.color = 'white'; }
-      listItem.style.color = 'red';
-      previousListItem = listItem;
-      i += 1;
-      waitTime += 7;
-      if (i === listItems.length) {
-        i = 0;
-        counter += 1;
-        // waitTime += 50;
+      if (previousListItem) {
+        previousListItem.style.color = 'rgb(177 177 177)';
       }
-      if (counter === 3 && i === randomIndex + 1) {
-        i = listItems.length;
-        mapsService.setMarker(randomRestaurantMarker);
-        mapsService.getOpenRestaurants()[randomIndex].infoWindow.open({ anchor: randomRestaurant.marker, map: mapsService.map });
+      listItem.style.color = 'rgb(198 0 4)';
+      previousListItem = listItem;
+      waitTime += 7;
+      if (counter < 3) {
+        if (i === listItems.length - 1) {
+          i = 0;
+          counter += 1;
+        } else {
+          i += 1;
+        }
+      } else if (counter === 3) {
+        if (i !== randomIndex) {
+          i += 1;
+        } else if (i === randomIndex) {
+          i = listItems.length;
+          mapsService.setMarker(randomRestaurantMarker);
+          openRestaurants[randomIndex].infoWindow.open({ anchor: randomRestaurant.marker, map: mapsService.map });
+        }
       }
     }
   }
+  rouletteButton?.removeAttribute('disabled');
+  await wait(1000);
+  window.scrollTo(0, 0);
 }
 
-startButton?.addEventListener('click', startApp, { passive: true });
+startButton?.addEventListener('click', runApp, { passive: true });
 
 displayButton?.addEventListener(
   'click',
@@ -218,3 +249,5 @@ displayButton?.addEventListener(
 rouletteButton?.addEventListener('click', lunchRoulette, { passive: true });
 
 removeButton?.addEventListener('click', () => mapsService.removeMarkers(), { passive: true });
+
+retrieveRestaurantsBtn?.addEventListener('click', runApp);
