@@ -205,6 +205,11 @@ async function lunchRoulette(): Promise<any> {
     randomRestaurantMarker.setMap(null);
   }
   const listItems: HTMLLIElement[] | null = Array.from(document.querySelectorAll('#restaurants-list li'));
+  listItems.forEach((item) => {
+    if (item.classList.contains('highlighted')) {
+      item.classList.toggle('highlighted');
+    }
+  });
   const openRestaurants: Restaurant[] = mapsService.getOpenRestaurants();
   const randomIndex: number = Math.floor(Math.random() * (openRestaurants.length));
   const randomRestaurant = openRestaurants[randomIndex];
@@ -240,6 +245,7 @@ async function lunchRoulette(): Promise<any> {
           i = listItems.length;
           mapsService.setMarker(randomRestaurantMarker);
           openRestaurants[randomIndex].infoWindow.open({ anchor: randomRestaurant.marker, map: mapsService.map });
+          openRestaurants[randomIndex].infoWindow.windowClosed = false;
         }
       }
     }
