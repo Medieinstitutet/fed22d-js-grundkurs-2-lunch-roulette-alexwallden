@@ -11,6 +11,7 @@ declare const google: any;
 
 interface IInfoWindow {
   content: string;
+  windowClosed: boolean;
   open: (map: any, marker: any) => void;
   close: (map: any, marker: any) => void;
   setContent: (content: string) => void;
@@ -39,7 +40,7 @@ class Restaurant {
     this.coordinates = { lat: this.info.geometry.location.lat(), lng: this.info.geometry.location.lng() };
     this.createMarker();
     this.isOpen = false;
-    this.id = Math.floor(Math.random() * 100_000);
+    this.id = Math.floor(Math.random() * 1_000_000);
   }
 
   createMarker() {
@@ -66,6 +67,7 @@ class Restaurant {
       <a href="${website}" rel="noopener noreferrer" target="_blank">Hemsida</a>
       `);
     }
+    infoWindow.windowClosed = true;
     this.infoWindow = infoWindow;
   }
 
