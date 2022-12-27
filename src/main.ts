@@ -118,11 +118,11 @@ function runApp() {
   console.log(radius);
   listHeading?.classList.add('hidden');
   retrieveRestaurantsBtn?.setAttribute('disabled', '');
-  mapsService.clearRestaurants();
   if (restaurantsList) {
     mapsService.removeMarkers();
     restaurantsList.innerHTML = '';
   }
+  mapsService.clearRestaurants();
   console.log('Startar appen');
   (async () => {
     toggleModal();
@@ -162,7 +162,7 @@ function runApp() {
             restaurant.calculateDistance(userMarker, userCoordinates);
             const distanceUnit: string = restaurant.distance > 10 ? 'm' : 'km';
             restaurantsList.innerHTML += /* html */ `
-          <li data-id="${restaurant.id}">${restaurant.info.name} Avstånd: ${restaurant.distance}${distanceUnit}</li>`;
+          <li data-id="${restaurant.id}"><h3>${restaurant.info.name}</h3> Avstånd: ${restaurant.distance}${distanceUnit}</li>`;
           });
           mapsService.setMarkers();
           const restaurantListItems: any[] = Array.from(restaurantsList.children);
@@ -230,7 +230,7 @@ async function lunchRoulette(): Promise<any> {
       }
       listItem.classList.toggle('highlighted');
       previousListItem = listItem;
-      waitTime += 7;
+      waitTime += Math.floor(7 * 1.3);
       if (counter < 3) {
         if (i === listItems.length - 1) {
           i = 0;

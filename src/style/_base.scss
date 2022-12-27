@@ -85,6 +85,7 @@ main {
     background-color: $base-black;
     border-radius: 5px;
     border: none;
+    cursor: pointer;
   }
 
   form {
@@ -123,6 +124,7 @@ ul {
 
   li {
     cursor: pointer;
+    margin-bottom: 10px;
 
     &:hover {
       color: $base-red;
@@ -170,8 +172,8 @@ ul {
     .spinner {
       position: relative;
       bottom: 20px;
-      height: 80px;
-      width: 80px;
+      height: 100px;
+      width: 100px;
       border: 4px solid;
       border-color: $base-red transparent $base-black transparent;
       border-radius: 50%;
