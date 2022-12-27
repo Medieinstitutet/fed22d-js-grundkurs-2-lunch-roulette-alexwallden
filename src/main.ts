@@ -104,7 +104,12 @@ function openInfoFromList(e: Event) {
   console.log((target as HTMLLIElement).dataset.id);
   mapsService.getOpenRestaurants().forEach((restaurant) => {
     if (Number((target as HTMLLIElement).dataset.id) === restaurant.id) {
-      restaurant.infoWindow.open({ anchor: restaurant.marker, map: mapsService.map });
+      if (restaurant.infoWindow.windowClosed) {
+        restaurant.infoWindow.open({ anchor: restaurant.marker, map: mapsService.map });
+      } else {
+        restaurant.infoWindow.close();
+      }
+      restaurant.infoWindow.windowClosed = !restaurant.infoWindow.windowClosed;
     }
   });
 }

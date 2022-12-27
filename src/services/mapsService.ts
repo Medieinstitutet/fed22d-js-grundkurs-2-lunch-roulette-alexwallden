@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
@@ -130,7 +131,12 @@ class MapsService {
   attachInfoWindows() {
     this.restaurants.forEach((restaurant) => {
       restaurant.marker.addListener('click', () => {
-        restaurant.infoWindow.open({ anchor: restaurant.marker, map: this.map });
+        if (restaurant.infoWindow.windowClosed) {
+          restaurant.infoWindow.open({ anchor: restaurant.marker, map: this.map });
+        } else {
+          restaurant.infoWindow.close();
+        }
+        restaurant.infoWindow.windowClosed = !restaurant.infoWindow.windowClosed;
       });
     });
   }

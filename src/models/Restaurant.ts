@@ -11,6 +11,7 @@ declare const google: any;
 
 interface IInfoWindow {
   content: string;
+  windowClosed: boolean;
   open: (map: any, marker: any) => void;
   close: (map: any, marker: any) => void;
   setContent: (content: string) => void;
@@ -66,6 +67,7 @@ class Restaurant {
       <a href="${website}" rel="noopener noreferrer" target="_blank">Hemsida</a>
       `);
     }
+    infoWindow.windowClosed = true;
     this.infoWindow = infoWindow;
   }
 
