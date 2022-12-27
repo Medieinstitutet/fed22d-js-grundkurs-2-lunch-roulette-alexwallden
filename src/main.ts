@@ -47,7 +47,6 @@ const toggleShowArray: any[] = [mapContainer, startButtonContainer, controls];
 let userCoordinatesSuccess: any;
 let userMarker: any;
 let radius = 500;
-console.log('BYT RADIUS');
 let userCoordinates: Coordinates | null = null;
 let randomRestaurantMarker: any;
 let showModal = false;
@@ -215,6 +214,7 @@ async function lunchRoulette(): Promise<any> {
       listItem.style.color = 'rgb(198 0 4)';
       previousListItem = listItem;
       waitTime += 7;
+      console.log(waitTime);
       if (counter < 3) {
         if (i === listItems.length - 1) {
           i = 0;
