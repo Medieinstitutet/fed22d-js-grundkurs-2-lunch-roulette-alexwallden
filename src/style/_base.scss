@@ -120,6 +120,18 @@ ul {
   min-height: 100%;
   list-style: none;
   padding: 0;
+
+  li {
+    cursor: pointer;
+
+    &:hover {
+      color: $base-red;
+    }
+  }
+
+  .highlighted {
+    color: $base-red;
+  }
 }
 
 .loading-modal {

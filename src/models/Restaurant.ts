@@ -39,7 +39,7 @@ class Restaurant {
     this.coordinates = { lat: this.info.geometry.location.lat(), lng: this.info.geometry.location.lng() };
     this.createMarker();
     this.isOpen = false;
-    this.id = Math.floor(Math.random() * 100_000);
+    this.id = Math.floor(Math.random() * 1_000_000);
   }
 
   createMarker() {

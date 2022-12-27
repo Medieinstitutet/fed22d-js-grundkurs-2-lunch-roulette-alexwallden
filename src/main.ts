@@ -96,11 +96,16 @@ function createUserMarker() {
 function showOrHide(elementsArray: any[]) {
   elementsArray.forEach((element: any) => {
     element.classList.toggle('hidden');
-    // if (element.classList.contains('hidden')) {
-    //   element.classList.remove('hidden');
-    // } else {
-    //   element.classList.add('hidden');
-    // }
+  });
+}
+
+function openInfoFromList(e: Event) {
+  const { target } = e;
+  console.log((target as HTMLLIElement).dataset.id);
+  mapsService.getOpenRestaurants().forEach((restaurant) => {
+    if (Number((target as HTMLLIElement).dataset.id) === restaurant.id) {
+      restaurant.infoWindow.open({ anchor: restaurant.marker, map: mapsService.map });
+    }
   });
 }
 
@@ -155,6 +160,11 @@ function runApp() {
           <li data-id="${restaurant.id}">${restaurant.info.name} Avstånd: ${restaurant.distance}${distanceUnit}</li>`;
           });
           mapsService.setMarkers();
+          const restaurantListItems: any[] = Array.from(restaurantsList.children);
+          console.log(restaurantListItems);
+          restaurantListItems.forEach((item) => {
+            item.addEventListener('click', openInfoFromList);
+          });
           toggleModal();
         }
       } else if (!userCoordinatesSuccess) {
@@ -192,7 +202,6 @@ async function lunchRoulette(): Promise<any> {
   const listItems: HTMLLIElement[] | null = Array.from(document.querySelectorAll('#restaurants-list li'));
   const openRestaurants: Restaurant[] = mapsService.getOpenRestaurants();
   const randomIndex: number = Math.floor(Math.random() * (openRestaurants.length));
-  console.log(randomIndex);
   const randomRestaurant = openRestaurants[randomIndex];
   randomRestaurantMarker = randomRestaurant.marker;
   mapsService.removeMarkers();
@@ -207,12 +216,11 @@ async function lunchRoulette(): Promise<any> {
       const listItem = listItems[i];
       await wait(waitTime);
       if (previousListItem) {
-        previousListItem.style.color = 'rgb(177 177 177)';
+        previousListItem.classList.toggle('highlighted');
       }
-      listItem.style.color = 'rgb(198 0 4)';
+      listItem.classList.toggle('highlighted');
       previousListItem = listItem;
       waitTime += 7;
-      console.log(waitTime);
       if (counter < 3) {
         if (i === listItems.length - 1) {
           i = 0;
