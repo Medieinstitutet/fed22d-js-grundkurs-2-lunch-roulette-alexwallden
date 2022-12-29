@@ -51,7 +51,7 @@ class MapsService {
           this.restaurants = [];
           results.forEach((result) => {
             if (result.business_status === 'OPERATIONAL') {
-              const restaurant = new Restaurant(result);
+              const restaurant = new Restaurant(this.map, result);
               this.restaurants.push(restaurant);
             }
           });
@@ -131,12 +131,7 @@ class MapsService {
   attachInfoWindows() {
     this.restaurants.forEach((restaurant) => {
       restaurant.marker.addListener('click', () => {
-        if (restaurant.infoWindow.windowClosed) {
-          restaurant.infoWindow.open({ anchor: restaurant.marker, map: this.map });
-        } else {
-          restaurant.infoWindow.close();
-        }
-        restaurant.infoWindow.windowClosed = !restaurant.infoWindow.windowClosed;
+        restaurant.toggleInfoWindow();
       });
     });
   }

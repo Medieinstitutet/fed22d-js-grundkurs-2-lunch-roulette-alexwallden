@@ -11,13 +11,15 @@ declare const google: any;
 
 interface IInfoWindow {
   content: string;
-  windowClosed: boolean;
+  windowOpen: boolean;
   open: (map: any, marker: any) => void;
   close: (map: any, marker: any) => void;
   setContent: (content: string) => void;
 }
 
 class Restaurant {
+  map: any;
+
   info: any;
 
   marker: any;
@@ -34,7 +36,8 @@ class Restaurant {
 
   isOpen: boolean;
 
-  constructor(info: any) {
+  constructor(map: any, info: any) {
+    this.map = map;
     this.distance = 0;
     this.info = info;
     this.coordinates = { lat: this.info.geometry.location.lat(), lng: this.info.geometry.location.lng() };
@@ -67,7 +70,7 @@ class Restaurant {
       <a href="${website}" rel="noopener noreferrer" target="_blank">Hemsida</a>
       `);
     }
-    infoWindow.windowClosed = true;
+    infoWindow.windowOpen = false;
     this.infoWindow = infoWindow;
   }
 
@@ -93,6 +96,20 @@ class Restaurant {
     } else if (d >= 1) {
       this.distance = Math.round(d * 10) / 10;
       this.createInfoWindow('km', userCoordinates);
+    }
+  }
+
+  toggleInfoWindow(bool ?: boolean) {
+    if (typeof bool === 'undefined') {
+      this.infoWindow.windowOpen = !this.infoWindow.windowOpen;
+    } else {
+      this.infoWindow.windowOpen = bool;
+      console.log(this.infoWindow.windowOpen);
+    }
+    if (this.infoWindow.windowOpen) {
+      this.infoWindow.open({ anchor: this.marker, map: this.map });
+    } else {
+      this.infoWindow.close();
     }
   }
 }
