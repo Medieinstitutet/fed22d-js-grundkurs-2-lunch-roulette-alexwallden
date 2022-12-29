@@ -6,25 +6,21 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Tangerine:wght@700&display=swap"
-    rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    rel="stylesheet" media="screen">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" media="screen">
   <meta charset="UTF-8" />
   <link rel="icon" type="image/ico" href="/fed22d-js-grundkurs-2-lunch-roulette-alexwallden/favicon.ico" />
   <meta name="description" content="lunch roulette food restaurants nearby options">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
   <title>Lunch roulette</title>
-  <script type="module" crossorigin src="/fed22d-js-grundkurs-2-lunch-roulette-alexwallden/assets/index.d586e50d.js"></script>
-  <link rel="stylesheet" href="/fed22d-js-grundkurs-2-lunch-roulette-alexwallden/assets/index.2766e421.css">
+  <script type="module" crossorigin src="/fed22d-js-grundkurs-2-lunch-roulette-alexwallden/assets/index.0c74b541.js"></script>
+  <link rel="stylesheet" href="/fed22d-js-grundkurs-2-lunch-roulette-alexwallden/assets/index.3ca805be.css">
 </head>
 
 <body>
-  <!-- <header>
-    <h1>Lunch roulette</h1>
-  </header> -->
   <main>
     <div class="start-btn-container">
-      <button id="start-btn" class="start-btn">Starta appen</button>
+      <button id="start-btn" class="start-btn">Hitta restauranger i närheten</button>
     </div>
     <div id="map" class="map hidden"></div>
     <div class="controls hidden">
@@ -44,9 +40,7 @@
         <button id="retrieve-btn" class="control-btn" disabled><i class="fa fa-refresh"></i></button>
       </form>
       <div class="control-btns">
-        <!-- <button id="display-btn">Visa alla restauranger</button> -->
         <button id="roulette-btn" class="control-btn">Lunch-roulette!</button>
-        <!-- <button id="remove-btn">Ta bort markers</button> -->
       </div>
     </div>
     <h2 id="list-heading" class="hidden">Restauranger som är öppna:</h2>
@@ -55,7 +49,7 @@
   <div class="loading-modal hidden">
     <div class="modal-container">
       <div class="text-container">
-        <h2 id="modal-text"><span class="loading-dots"></span></h2>
+        <h2 id="modal-text"><span class="loading-dots">...</span></h2>
       </div>
       <div class="spinner"></div>
     </div>
@@ -72,5 +66,6 @@
   <!-- <script async
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAyyGt65_xY4awnkM55WP482gN_e8_FhVo&libraries=places&callback=initMap">
 </script> -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
   </body>
 </html>
