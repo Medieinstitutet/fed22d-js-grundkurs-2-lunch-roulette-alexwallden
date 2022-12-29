@@ -42,3 +42,6 @@ lerna-debug.log*
 
 # Keys
 api_key.env
+
+# Images
+/src/images/originals

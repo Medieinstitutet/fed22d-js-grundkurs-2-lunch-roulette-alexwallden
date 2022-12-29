@@ -1,50 +1,14 @@
-[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-c66648af7eb3fe8bc4f294546bfd86ef473780cde1dea487d3c4ff354943c9ae.svg)](https://classroom.github.com/online_ide?assignment_repo_id=9551151&assignment_repo_type=AssignmentRepo)
-# FED22D JS Grundkurs Projektmall
-Mall för projektuppgiften i JavaScript Grundkurs för FED22D.
+# Lunch Roulette
 
-Mallen innehåller:
-- Vite (för att komprimera och publicera optimerad kod)
-- ESLint, Prettier och Stylelint för kodformatering
-- TypeScript för typstöd
-- Inställningar för Visual Studio Code
+## Project description
 
-## Installation
-Installera "dependencies" till projektet med följande kommando i terminalen:
+A website that uses Google Maps Api and Google Places Api to list nearby restaurants within a radius of 500m, 1km or 3 km.
+You can let the website choose a random restaurant to eat at by clicking the roulette button.
 
-- Med npm: `npm install`
-- Med pnpm: `pnpm install`
-- Med Yarn: `yarn install`
+## Tech Stack
 
-För att köra projektet, använd scriptet "dev" i `package.json`:
+![](https://img.shields.io/badge/-Typescript-007acc?style=flat&logo=typescript&logoColor=black) ![](https://img.shields.io/badge/-Prettier-F7B93E?style=flat&logo=prettier&logoColor=black) ![](https://img.shields.io/badge/-ESLint-4B32C3?style=flat&logo=eslint&logoColor=white) ![](https://img.shields.io/badge/-HTML5-E34F26?style=flat&logo=html5&logoColor=white) ![](https://img.shields.io/badge/-Sass-CC6699?style=flat&logo=sass&logoColor=white) ![](https://img.shields.io/badge/-GSAP-88CE02?style=flat&logo=greensock&logoColor=black)
 
-- Med npm: `npm run dev`
-- Med pnpm: `pnpm run dev`
-- Med Yarn: `yarn run dev`
+## Author
 
-## Såhär använder du mallen
-- Du arbetar primärt i mappen `src`. Där finns JavaScript och stilmallar.
-- På rotnivån i projektet hittar du `index.html`, som du kan använda såsom du använt `index.html` hittills i de olika projekten.
-- I mappen `public` lägger du alla filer som t.ex. bilder, favicons, fonter, osv. som är s.k. "static assets". T.ex. sådant du behöver länka in från SCSS.
-
-### Filer du inte behöver röra
-- `src/vite-env.d.ts` - Används för att bidra med "code hinting" i editorn
-- `.gitignore` - Vilka filer som inte ska vara med i versionshanteringen
-- `tsconfig.json` - Används för att definiera hur TypeScript ska skrivas och tolkas
-- `.npmrc` - Används för att installera ev. dependencies
-- `stylelint.config.cjs` - Regler för hur SCSS ska skrivas.
-- `.pretterrc.json` - Används för att tvinga JavaScript att skrivas på ett visst sätt. Ändra om du vill göra en egen konfiguration
-- `.eslintrc.cjs` - Används för att tvinga JavaScript att skrivas på ett visst sätt. Ändra om du vill göra din egen konfiguration.
-- Mappen `.github` innehåller en s.k. action/workflow för att publicera de ändringar som pushas till main, när repot är publikt
-
-## Publicera ditt projekt
-Detta projekt innehåller en automatisk workflow/action, som fungerar såhär:
-
-1. Varje gång du pushar till branchen `main`, så triggas ett script som heter `Deploy changes`.
-2. Detta script kör i princip kommandot `pnpm run build`. Den skapar en mapp som heter `dist`, som innehåller ditt optimerade/färdiga/publicerade projekt. Filerna i den mappen kopieras över till en ny branch, som heter `gh-pages`.
-
-För att aktivera din sajt live behöver du:
-
-1. Gå in i filen `vite.config.js` och ändra `base` så att den heter samma som ditt repo heter.
-2. Gå in i inställningarna för ditt repo (Settings), gå till fliken "General" och längst ner på sidan i "Danger Zone" ändrar du repots "visibility" till public.
-3. I samma "Settings"-flik på ditt repo, klicka på "Pages" i menyn till vänster.
-4. I "Branch"-dropdownen väljer du `gh-pages`.
+[@alexwallden](https://github.com/alexwallden)
