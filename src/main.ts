@@ -32,28 +32,26 @@ const spinner: HTMLDivElement | null = document.querySelector('.spinner');
 const controls: HTMLDivElement | null = document.querySelector('.controls');
 const startButtonContainer: HTMLDivElement | null = document.querySelector('.start-btn-container');
 const startButton: HTMLElement | null = document.querySelector('#start-btn');
-const displayButton: HTMLElement | null = document.querySelector('#display-btn');
-const removeButton: HTMLElement | null = document.querySelector('#remove-btn');
 const rouletteButton: HTMLElement | null = document.querySelector('#roulette-btn');
 const rangeInputs: HTMLElement[] = Array.from(document.querySelectorAll('input[name="range-input"]'));
 const retrieveRestaurantsBtn: HTMLButtonElement | null = document.querySelector('#retrieve-btn');
 const listHeading: HTMLHeadingElement | null = document.querySelector('#list-heading');
-// const form: HTMLFormElement | null = document.querySelector('#form');
 const mapsService: MapsService = new MapsService(mapContainer);
 const timeLine = gsap.timeline({ repeat: -1 });
 const toggleShowArray: any[] = [mapContainer, startButtonContainer, controls];
 
-let userCoordinatesSuccess: any;
+let userCoordinatesSuccess: boolean | null;
 let userMarker: any;
 let radius = 500;
 let userCoordinates: Coordinates | null = null;
 let randomRestaurantMarker: any;
 let showModal = false;
 
-function toggleModal() {
+function toggleLoadingModal() {
   showModal = !showModal;
   loadingModal?.classList.toggle('hidden');
   if (showModal) {
+    timeLine.set('.spinner', { rotation: 0 });
     timeLine.play();
     timeLine.to('.spinner', {
       rotate: 360,
@@ -99,33 +97,27 @@ function showOrHide(elementsArray: any[]) {
   });
 }
 
-function openInfoFromList(e: Event) {
-  const { target } = e;
-  console.log((target as HTMLLIElement).dataset.id);
+function openInfoFromList(event: Event) {
+  const { target } = event;
+  const listItem = (target as HTMLHeadingElement).parentElement;
   mapsService.getOpenRestaurants().forEach((restaurant) => {
-    if (Number((target as HTMLLIElement).dataset.id) === restaurant.id) {
-      if (restaurant.infoWindow.windowClosed) {
-        restaurant.infoWindow.open({ anchor: restaurant.marker, map: mapsService.map });
-      } else {
-        restaurant.infoWindow.close();
-      }
-      restaurant.infoWindow.windowClosed = !restaurant.infoWindow.windowClosed;
+    if (Number((listItem as HTMLLIElement).dataset.id) === restaurant.id) {
+      restaurant.toggleInfoWindow();
     }
   });
 }
 
 function runApp() {
-  console.log(radius);
   listHeading?.classList.add('hidden');
   retrieveRestaurantsBtn?.setAttribute('disabled', '');
-  mapsService.clearRestaurants();
   if (restaurantsList) {
     mapsService.removeMarkers();
     restaurantsList.innerHTML = '';
   }
+  mapsService.clearRestaurants();
   console.log('Startar appen');
   (async () => {
-    toggleModal();
+    toggleLoadingModal();
     if (!userCoordinates) {
       showOrHide(toggleShowArray);
       setLoadingText('Hittar din plats');
@@ -152,7 +144,7 @@ function runApp() {
             <li>Det finns inga restauranger inom ${checkedRadioDistance}</li>`;
           }
           rouletteButton?.setAttribute('disabled', '');
-          toggleModal();
+          toggleLoadingModal();
         } else {
           rouletteButton?.removeAttribute('disabled');
           mapsService.attachInfoWindows();
@@ -162,15 +154,15 @@ function runApp() {
             restaurant.calculateDistance(userMarker, userCoordinates);
             const distanceUnit: string = restaurant.distance > 10 ? 'm' : 'km';
             restaurantsList.innerHTML += /* html */ `
-          <li data-id="${restaurant.id}">${restaurant.info.name} Avstånd: ${restaurant.distance}${distanceUnit}</li>`;
+          <li class="hover" data-id="${restaurant.id}"><h3>${restaurant.info.name}</h3> <p>Avstånd: ${restaurant.distance}${distanceUnit}</p></li>`;
           });
           mapsService.setMarkers();
           const restaurantListItems: any[] = Array.from(restaurantsList.children);
           console.log(restaurantListItems);
           restaurantListItems.forEach((item) => {
-            item.addEventListener('click', openInfoFromList);
+            item.addEventListener('click', openInfoFromList, { passive: true });
           });
-          toggleModal();
+          toggleLoadingModal();
         }
       } else if (!userCoordinatesSuccess) {
         spinner?.classList.toggle('hidden');
@@ -206,7 +198,8 @@ async function lunchRoulette(): Promise<any> {
   }
   const listItems: HTMLLIElement[] | null = Array.from(document.querySelectorAll('#restaurants-list li'));
   listItems.forEach((item) => {
-    if (item.classList.contains('highlighted')) {
+    item.classList.toggle('hover'); // Remove color when list item is hovered
+    if (item.classList.contains('highlighted')) { // Remove highlight if roulette has been run before
       item.classList.toggle('highlighted');
     }
   });
@@ -230,7 +223,7 @@ async function lunchRoulette(): Promise<any> {
       }
       listItem.classList.toggle('highlighted');
       previousListItem = listItem;
-      waitTime += 7;
+      waitTime += 10;
       if (counter < 3) {
         if (i === listItems.length - 1) {
           i = 0;
@@ -244,31 +237,21 @@ async function lunchRoulette(): Promise<any> {
         } else if (i === randomIndex) {
           i = listItems.length;
           mapsService.setMarker(randomRestaurantMarker);
-          openRestaurants[randomIndex].infoWindow.open({ anchor: randomRestaurant.marker, map: mapsService.map });
-          openRestaurants[randomIndex].infoWindow.windowClosed = false;
+          openRestaurants[randomIndex].toggleInfoWindow(true);
         }
       }
     }
   }
   rouletteButton?.removeAttribute('disabled');
   await wait(1000);
+  listItems.forEach((item) => { // List item gets red when hovered
+    item.classList.toggle('hover');
+  });
   window.scrollTo(0, 0);
 }
 
 startButton?.addEventListener('click', runApp, { passive: true });
 
-displayButton?.addEventListener(
-  'click',
-  () => {
-    mapsService.setMarkers();
-  },
-  { passive: true },
-);
-
 rouletteButton?.addEventListener('click', lunchRoulette, { passive: true });
 
-removeButton?.addEventListener('click', () => mapsService.removeMarkers(), { passive: true });
-
-retrieveRestaurantsBtn?.addEventListener('click', runApp);
-
-// window.initMap = mapsService.initMap;
+retrieveRestaurantsBtn?.addEventListener('click', runApp, { passive: true });
