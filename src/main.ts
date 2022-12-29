@@ -51,6 +51,7 @@ function toggleLoadingModal() {
   showModal = !showModal;
   loadingModal?.classList.toggle('hidden');
   if (showModal) {
+    timeLine.set('.spinner', { rotation: 0 });
     timeLine.play();
     timeLine.to('.spinner', {
       rotate: 360,
