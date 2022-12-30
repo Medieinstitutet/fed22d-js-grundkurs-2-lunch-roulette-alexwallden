@@ -104,7 +104,6 @@ class Restaurant {
       this.infoWindow.windowOpen = !this.infoWindow.windowOpen;
     } else {
       this.infoWindow.windowOpen = bool;
-      console.log(this.infoWindow.windowOpen);
     }
     if (this.infoWindow.windowOpen) {
       this.infoWindow.open({ anchor: this.marker, map: this.map });

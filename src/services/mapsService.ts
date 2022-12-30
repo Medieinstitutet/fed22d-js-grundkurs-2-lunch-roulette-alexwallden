@@ -55,7 +55,6 @@ class MapsService {
               this.restaurants.push(restaurant);
             }
           });
-          console.log(this.restaurants);
           await this.retrieveDetails();
           switch (radius) {
             case 500:
@@ -98,7 +97,6 @@ class MapsService {
       this.retrievePromises.push(retrievePromise);
       await wait(300);
     }
-    console.log(this.restaurants);
     await this.filterOpenRestaurants();
   }
 

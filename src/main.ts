@@ -158,7 +158,6 @@ function runApp() {
           });
           mapsService.setMarkers();
           const restaurantListItems: any[] = Array.from(restaurantsList.children);
-          console.log(restaurantListItems);
           restaurantListItems.forEach((item) => {
             item.addEventListener('click', openInfoFromList, { passive: true });
           });
@@ -209,8 +208,6 @@ async function lunchRoulette(): Promise<any> {
   randomRestaurantMarker = randomRestaurant.marker;
   mapsService.removeMarkers();
   let previousListItem: HTMLLIElement | null = null;
-  console.log(openRestaurants);
-  console.log(listItems);
 
   if (listItems) {
     let counter = 0;
