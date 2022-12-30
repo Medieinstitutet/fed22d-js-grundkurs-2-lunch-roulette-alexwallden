@@ -7,7 +7,7 @@ You can let the website choose a random restaurant to eat at by clicking the rou
 
 ## Tests
 
-[![](https://img.shields.io/badge/Performance-98-green)]() [![](https://img.shields.io/badge/Accessibility-100-green)]() [![](https://img.shields.io/badge/Best_Practises-100-green)]() [![](https://img.shields.io/badge/SEO-100-green)]()
+[![](https://img.shields.io/badge/Performance-98-green)](https://medieinstitutet.github.io/fed22d-js-grundkurs-2-lunch-roulette-alexwallden/tests/lighthouse_report) [![](https://img.shields.io/badge/Accessibility-100-green)](https://medieinstitutet.github.io/fed22d-js-grundkurs-2-lunch-roulette-alexwallden/tests/lighthouse_report) [![](https://img.shields.io/badge/Best_Practises-100-green)](https://medieinstitutet.github.io/fed22d-js-grundkurs-2-lunch-roulette-alexwallden/tests/lighthouse_report) [![](https://img.shields.io/badge/SEO-100-green)](https://medieinstitutet.github.io/fed22d-js-grundkurs-2-lunch-roulette-alexwallden/tests/lighthouse_report)
 
 [![](https://img.shields.io/badge/HTML_Validation-No_errors_or_warnings-green)](https://validator.w3.org/nu/?doc=https%3A%2F%2Fmedieinstitutet.github.io%2Ffed22d-js-grundkurs-2-lunch-roulette-alexwallden%2F) [![](https://img.shields.io/badge/CSS_Validation-Level_3-green)](https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Fmedieinstitutet.github.io%2Ffed22d-js-grundkurs-2-lunch-roulette-alexwallden%2F&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=sv)
 
@@ -22,3 +22,8 @@ You can let the website choose a random restaurant to eat at by clicking the rou
 ## Demo
 
 [Live Demo](https://medieinstitutet.github.io/fed22d-js-grundkurs-2-lunch-roulette-alexwallden/)
+
+## Screenshots
+
+![App Screenshot](https://medieinstitutet.github.io/fed22d-js-grundkurs-2-lunch-roulette-alexwallden/tests/desktop_start) ![App Screenshot](https://medieinstitutet.github.io/fed22d-js-grundkurs-2-lunch-roulette-alexwallden/tests/desktop_open) ![App Screenshot](https://medieinstitutet.github.io/fed22d-js-grundkurs-2-lunch-roulette-alexwallden/tests/desktop_loading)
+![App Screenshot](https://medieinstitutet.github.io/fed22d-js-grundkurs-2-lunch-roulette-alexwallden/tests/mobile_start) ![App Screenshot](https://medieinstitutet.github.io/fed22d-js-grundkurs-2-lunch-roulette-alexwallden/tests/mobile_open) ![App Screenshot](https://medieinstitutet.github.io/fed22d-js-grundkurs-2-lunch-roulette-alexwallden/tests/mobile_loading)
