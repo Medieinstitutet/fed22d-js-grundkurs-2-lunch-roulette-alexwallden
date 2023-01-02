@@ -39,3 +39,9 @@ lerna-debug.log*
 *.njsproj
 *.sln
 *.sw?
+
+# Keys
+api_key.env
+
+# Images
+/src/images/originals

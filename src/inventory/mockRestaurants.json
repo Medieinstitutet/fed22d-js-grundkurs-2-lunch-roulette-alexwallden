@@ -1,0 +1,889 @@
+[
+  {
+      "business_status": "OPERATIONAL",
+      "geometry": {
+          "location": {
+              "lat": 58.59494919999999,
+              "lng": 16.1858333
+          },
+          "viewport": {
+              "south": 58.59363921970849,
+              "west": 16.1844881197085,
+              "north": 58.5963371802915,
+              "east": 16.1871860802915
+          }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/lodging-71.png",
+      "icon_background_color": "#909CE1",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/hotel_pinlet",
+      "name": "Scandic Strömmen",
+      "opening_hours": {
+          "open_now": true
+      },
+      "photos": [
+          {
+              "height": 4128,
+              "html_attributions": [
+                  "<a href=\"https://maps.google.com/maps/contrib/106979841137164981325\">Jeremiah S. Richter</a>"
+              ],
+              "width": 3096
+          }
+      ],
+      "place_id": "ChIJJxxTJko6WUYRw08BnGkuQl4",
+      "plus_code": {
+          "compound_code": "H5VP+X8 Norrköping, Sverige",
+          "global_code": "9FCRH5VP+X8"
+      },
+      "rating": 3.8,
+      "reference": "ChIJJxxTJko6WUYRw08BnGkuQl4",
+      "scope": "GOOGLE",
+      "types": [
+          "lodging",
+          "restaurant",
+          "food",
+          "point_of_interest",
+          "establishment"
+      ],
+      "user_ratings_total": 1060,
+      "vicinity": "Slottsgatan 99, Norrköping",
+      "html_attributions": []
+  },
+  {
+      "business_status": "OPERATIONAL",
+      "geometry": {
+          "location": {
+              "lat": 58.593579,
+              "lng": 16.182964
+          },
+          "viewport": {
+              "south": 58.59233401970848,
+              "west": 16.1815569697085,
+              "north": 58.59503198029149,
+              "east": 16.1842549302915
+          }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
+      "icon_background_color": "#FF9E67",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/restaurant_pinlet",
+      "name": "Vila Bar/Kök",
+      "opening_hours": {
+          "open_now": false
+      },
+      "photos": [
+          {
+              "height": 3424,
+              "html_attributions": [
+                  "<a href=\"https://maps.google.com/maps/contrib/110567816659791196590\">Vila Bar/Kök</a>"
+              ],
+              "width": 5135
+          }
+      ],
+      "place_id": "ChIJ-boLbko6WUYRu37aHvI6Q3o",
+      "plus_code": {
+          "compound_code": "H5VM+C5 Norrköping, Sverige",
+          "global_code": "9FCRH5VM+C5"
+      },
+      "price_level": 3,
+      "rating": 4,
+      "reference": "ChIJ-boLbko6WUYRu37aHvI6Q3o",
+      "scope": "GOOGLE",
+      "types": [
+          "restaurant",
+          "food",
+          "point_of_interest",
+          "establishment"
+      ],
+      "user_ratings_total": 411,
+      "vicinity": "Bråddgatan 9, Norrköping",
+      "html_attributions": []
+  },
+  {
+      "business_status": "OPERATIONAL",
+      "geometry": {
+          "location": {
+              "lat": 58.5988218,
+              "lng": 16.1867133
+          },
+          "viewport": {
+              "south": 58.5974126197085,
+              "west": 16.1852242697085,
+              "north": 58.60011058029151,
+              "east": 16.1879222302915
+          }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
+      "icon_background_color": "#FF9E67",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/restaurant_pinlet",
+      "name": "Norell's Mat",
+      "photos": [
+          {
+              "height": 2988,
+              "html_attributions": [
+                  "<a href=\"https://maps.google.com/maps/contrib/109293044937839852733\">Agnes Karlsson</a>"
+              ],
+              "width": 5312
+          }
+      ],
+      "place_id": "ChIJ_Te0uzU6WUYRE65Q0OgdCg8",
+      "plus_code": {
+          "compound_code": "H5XP+GM Norrköping, Sverige",
+          "global_code": "9FCRH5XP+GM"
+      },
+      "rating": 3.8,
+      "reference": "ChIJ_Te0uzU6WUYRE65Q0OgdCg8",
+      "scope": "GOOGLE",
+      "types": [
+          "restaurant",
+          "food",
+          "point_of_interest",
+          "establishment"
+      ],
+      "user_ratings_total": 36,
+      "vicinity": "Lindåkersgatan 2, Norrköping",
+      "html_attributions": []
+  },
+  {
+      "business_status": "OPERATIONAL",
+      "geometry": {
+          "location": {
+              "lat": 58.5993154,
+              "lng": 16.1803972
+          },
+          "viewport": {
+              "south": 58.59794436970849,
+              "west": 16.1788789697085,
+              "north": 58.60064233029151,
+              "east": 16.18157693029151
+          }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
+      "icon_background_color": "#FF9E67",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/restaurant_pinlet",
+      "name": "Leons",
+      "opening_hours": {
+          "open_now": true
+      },
+      "photos": [
+          {
+              "height": 3000,
+              "html_attributions": [
+                  "<a href=\"https://maps.google.com/maps/contrib/116240695798189596082\">Albin Leffing</a>"
+              ],
+              "width": 4000
+          }
+      ],
+      "place_id": "ChIJH11bBzc6WUYR7njKwlcxHkM",
+      "plus_code": {
+          "compound_code": "H5XJ+P5 Norrköping, Sverige",
+          "global_code": "9FCRH5XJ+P5"
+      },
+      "price_level": 1,
+      "rating": 4.5,
+      "reference": "ChIJH11bBzc6WUYR7njKwlcxHkM",
+      "scope": "GOOGLE",
+      "types": [
+          "restaurant",
+          "food",
+          "point_of_interest",
+          "establishment"
+      ],
+      "user_ratings_total": 1328,
+      "vicinity": "Kronängsgatan 16, Norrköping",
+      "html_attributions": []
+  },
+  {
+      "business_status": "OPERATIONAL",
+      "geometry": {
+          "location": {
+              "lat": 58.5988192,
+              "lng": 16.1871054
+          },
+          "viewport": {
+              "south": 58.5973603697085,
+              "west": 16.1855009697085,
+              "north": 58.60005833029151,
+              "east": 16.1881989302915
+          }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
+      "icon_background_color": "#FF9E67",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/restaurant_pinlet",
+      "name": "Må Bra Catering",
+      "place_id": "ChIJVVVVsUw6WUYRjrT7tBvnJ9c",
+      "plus_code": {
+          "compound_code": "H5XP+GR Norrköping, Sverige",
+          "global_code": "9FCRH5XP+GR"
+      },
+      "rating": 4,
+      "reference": "ChIJVVVVsUw6WUYRjrT7tBvnJ9c",
+      "scope": "GOOGLE",
+      "types": [
+          "meal_takeaway",
+          "home_goods_store",
+          "store",
+          "restaurant",
+          "food",
+          "point_of_interest",
+          "establishment"
+      ],
+      "user_ratings_total": 1,
+      "vicinity": "Lindåkersgatan 2, Norrköping",
+      "html_attributions": []
+  },
+  {
+      "business_status": "OPERATIONAL",
+      "geometry": {
+          "location": {
+              "lat": 58.6001691,
+              "lng": 16.1847781
+          },
+          "viewport": {
+              "south": 58.59890031970848,
+              "west": 16.1833917697085,
+              "north": 58.6015982802915,
+              "east": 16.18608973029151
+          }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
+      "icon_background_color": "#FF9E67",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/restaurant_pinlet",
+      "name": "Restaurang Provencale",
+      "opening_hours": {
+          "open_now": true
+      },
+      "photos": [
+          {
+              "height": 2988,
+              "html_attributions": [
+                  "<a href=\"https://maps.google.com/maps/contrib/110077483482677426065\">Johan Hedlund</a>"
+              ],
+              "width": 5312
+          }
+      ],
+      "place_id": "ChIJgUTx5Tc6WUYRrX2bAJjNb34",
+      "plus_code": {
+          "compound_code": "J52M+3W Norrköping, Sverige",
+          "global_code": "9FCRJ52M+3W"
+      },
+      "price_level": 2,
+      "rating": 4,
+      "reference": "ChIJgUTx5Tc6WUYRrX2bAJjNb34",
+      "scope": "GOOGLE",
+      "types": [
+          "restaurant",
+          "food",
+          "point_of_interest",
+          "establishment"
+      ],
+      "user_ratings_total": 92,
+      "vicinity": "Fredriksdalsgatan 25, Norrköping",
+      "html_attributions": []
+  },
+  {
+      "business_status": "OPERATIONAL",
+      "geometry": {
+          "location": {
+              "lat": 58.5946649,
+              "lng": 16.1850971
+          },
+          "viewport": {
+              "south": 58.59330451970849,
+              "west": 16.1836664197085,
+              "north": 58.5960024802915,
+              "east": 16.1863643802915
+          }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
+      "icon_background_color": "#FF9E67",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/restaurant_pinlet",
+      "name": "Renströmmen Restaurang och Konferens",
+      "opening_hours": {
+          "open_now": true
+      },
+      "photos": [
+          {
+              "height": 935,
+              "html_attributions": [
+                  "<a href=\"https://maps.google.com/maps/contrib/110954841642416508040\">Mikael Good</a>"
+              ],
+              "width": 1400
+          }
+      ],
+      "place_id": "ChIJRSMTI0o6WUYRCDjyfHpMQu0",
+      "plus_code": {
+          "compound_code": "H5VP+V2 Norrköping, Sverige",
+          "global_code": "9FCRH5VP+V2"
+      },
+      "price_level": 2,
+      "rating": 3.9,
+      "reference": "ChIJRSMTI0o6WUYRCDjyfHpMQu0",
+      "scope": "GOOGLE",
+      "types": [
+          "restaurant",
+          "cafe",
+          "food",
+          "point_of_interest",
+          "establishment"
+      ],
+      "user_ratings_total": 113,
+      "vicinity": "Drottninggatan 1, Norrköping",
+      "html_attributions": []
+  },
+  {
+      "business_status": "OPERATIONAL",
+      "geometry": {
+          "location": {
+              "lat": 58.59366540000001,
+              "lng": 16.181028
+          },
+          "viewport": {
+              "south": 58.5922403697085,
+              "west": 16.1795917697085,
+              "north": 58.59493833029151,
+              "east": 16.1822897302915
+          }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
+      "icon_background_color": "#FF9E67",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/restaurant_pinlet",
+      "name": "Meze Bar & Kök i Norrköping",
+      "opening_hours": {
+          "open_now": false
+      },
+      "photos": [
+          {
+              "height": 4480,
+              "html_attributions": [
+                  "<a href=\"https://maps.google.com/maps/contrib/108719464716188177678\">Meze Bar &amp; Kök i Norrköping</a>"
+              ],
+              "width": 6720
+          }
+      ],
+      "place_id": "ChIJM6eEiDU6WUYR2HPKieBNWBU",
+      "plus_code": {
+          "compound_code": "H5VJ+FC Norrköping, Sverige",
+          "global_code": "9FCRH5VJ+FC"
+      },
+      "price_level": 2,
+      "rating": 4.2,
+      "reference": "ChIJM6eEiDU6WUYR2HPKieBNWBU",
+      "scope": "GOOGLE",
+      "types": [
+          "restaurant",
+          "food",
+          "point_of_interest",
+          "establishment"
+      ],
+      "user_ratings_total": 260,
+      "vicinity": "Bråddgatan 14, Norrköping",
+      "html_attributions": []
+  },
+  {
+      "business_status": "OPERATIONAL",
+      "geometry": {
+          "location": {
+              "lat": 58.5958434,
+              "lng": 16.1902606
+          },
+          "viewport": {
+              "south": 58.59443296970849,
+              "west": 16.1889272197085,
+              "north": 58.5971309302915,
+              "east": 16.1916251802915
+          }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
+      "icon_background_color": "#FF9E67",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/restaurant_pinlet",
+      "name": "Restaurang Remmaren",
+      "opening_hours": {
+          "open_now": true
+      },
+      "photos": [
+          {
+              "height": 900,
+              "html_attributions": [
+                  "<a href=\"https://maps.google.com/maps/contrib/116127734391585185178\">Örjan</a>"
+              ],
+              "width": 1836
+          }
+      ],
+      "place_id": "ChIJdUK1aUk6WUYRTyLGRfr8z7o",
+      "plus_code": {
+          "compound_code": "H5WR+84 Norrköping, Sverige",
+          "global_code": "9FCRH5WR+84"
+      },
+      "price_level": 1,
+      "rating": 4,
+      "reference": "ChIJdUK1aUk6WUYRTyLGRfr8z7o",
+      "scope": "GOOGLE",
+      "types": [
+          "restaurant",
+          "food",
+          "point_of_interest",
+          "establishment"
+      ],
+      "user_ratings_total": 47,
+      "vicinity": "Slottsgatan 77-79, Norrköping",
+      "html_attributions": []
+  },
+  {
+      "business_status": "OPERATIONAL",
+      "geometry": {
+          "location": {
+              "lat": 58.59513089999999,
+              "lng": 16.1820392
+          },
+          "viewport": {
+              "south": 58.59391146970849,
+              "west": 16.1805194697085,
+              "north": 58.5966094302915,
+              "east": 16.18321743029151
+          }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
+      "icon_background_color": "#FF9E67",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/restaurant_pinlet",
+      "name": "Hugo Stekhus Klubb & Bowling",
+      "opening_hours": {
+          "open_now": false
+      },
+      "photos": [
+          {
+              "height": 1336,
+              "html_attributions": [
+                  "<a href=\"https://maps.google.com/maps/contrib/111472200078701809387\">Hugo Stekhus Klubb &amp; Bowling</a>"
+              ],
+              "width": 2048
+          }
+      ],
+      "place_id": "ChIJ725k9zU6WUYRM8b0OE64t-c",
+      "plus_code": {
+          "compound_code": "H5WJ+3R Norrköping, Sverige",
+          "global_code": "9FCRH5WJ+3R"
+      },
+      "price_level": 2,
+      "rating": 3.9,
+      "reference": "ChIJ725k9zU6WUYRM8b0OE64t-c",
+      "scope": "GOOGLE",
+      "types": [
+          "restaurant",
+          "food",
+          "point_of_interest",
+          "establishment"
+      ],
+      "user_ratings_total": 575,
+      "vicinity": "Slottsgatan 118, Norrköping",
+      "html_attributions": []
+  },
+  {
+      "business_status": "OPERATIONAL",
+      "geometry": {
+          "location": {
+              "lat": 58.5963827,
+              "lng": 16.1832087
+          },
+          "viewport": {
+              "south": 58.59493856970849,
+              "west": 16.1817105197085,
+              "north": 58.5976365302915,
+              "east": 16.1844084802915
+          }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/cafe-71.png",
+      "icon_background_color": "#FF9E67",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/cafe_pinlet",
+      "name": "Espresso House",
+      "opening_hours": {
+          "open_now": true
+      },
+      "photos": [
+          {
+              "height": 4032,
+              "html_attributions": [
+                  "<a href=\"https://maps.google.com/maps/contrib/112961467970850537960\">Viking By</a>"
+              ],
+              "width": 3024
+          }
+      ],
+      "place_id": "ChIJP2BO-aw7WUYRACIrMee4kvU",
+      "plus_code": {
+          "compound_code": "H5WM+H7 Norrköping, Sverige",
+          "global_code": "9FCRH5WM+H7"
+      },
+      "price_level": 2,
+      "rating": 3.9,
+      "reference": "ChIJP2BO-aw7WUYRACIrMee4kvU",
+      "scope": "GOOGLE",
+      "types": [
+          "cafe",
+          "store",
+          "restaurant",
+          "food",
+          "point_of_interest",
+          "establishment"
+      ],
+      "user_ratings_total": 514,
+      "vicinity": "Norra Promenaden 94, Norrköping",
+      "html_attributions": []
+  },
+  {
+      "business_status": "OPERATIONAL",
+      "geometry": {
+          "location": {
+              "lat": 58.60029480000001,
+              "lng": 16.1826079
+          },
+          "viewport": {
+              "south": 58.59881851970849,
+              "west": 16.1811639697085,
+              "north": 58.6015164802915,
+              "east": 16.1838619302915
+          }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
+      "icon_background_color": "#FF9E67",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/restaurant_pinlet",
+      "name": "Piano Lounge i Norrköping",
+      "opening_hours": {
+          "open_now": false
+      },
+      "photos": [
+          {
+              "height": 3024,
+              "html_attributions": [
+                  "<a href=\"https://maps.google.com/maps/contrib/102326136003571110636\">سامر جرجس</a>"
+              ],
+              "width": 4032
+          }
+      ],
+      "place_id": "ChIJwW2Uljc6WUYRH5k1_5uf4yE",
+      "plus_code": {
+          "compound_code": "J52M+42 Norrköping, Sverige",
+          "global_code": "9FCRJ52M+42"
+      },
+      "price_level": 2,
+      "rating": 4,
+      "reference": "ChIJwW2Uljc6WUYRH5k1_5uf4yE",
+      "scope": "GOOGLE",
+      "types": [
+          "restaurant",
+          "food",
+          "point_of_interest",
+          "establishment"
+      ],
+      "user_ratings_total": 201,
+      "vicinity": "Fredriksdalsgatan 28, Norrköping",
+      "html_attributions": []
+  },
+  {
+      "business_status": "OPERATIONAL",
+      "geometry": {
+          "location": {
+              "lat": 58.59492889999999,
+              "lng": 16.1861315
+          },
+          "viewport": {
+              "south": 58.59364576970849,
+              "west": 16.18474921970849,
+              "north": 58.5963437302915,
+              "east": 16.1874471802915
+          }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
+      "icon_background_color": "#FF9E67",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/restaurant_pinlet",
+      "name": "Restaurang Tegel",
+      "opening_hours": {
+          "open_now": true
+      },
+      "photos": [
+          {
+              "height": 1333,
+              "html_attributions": [
+                  "<a href=\"https://maps.google.com/maps/contrib/106526005179037592667\">Restaurang Tegel</a>"
+              ],
+              "width": 2000
+          }
+      ],
+      "place_id": "ChIJ7W-ySfo7WUYRr6E7QHj9tRI",
+      "plus_code": {
+          "compound_code": "H5VP+XF Norrköping, Sverige",
+          "global_code": "9FCRH5VP+XF"
+      },
+      "rating": 4,
+      "reference": "ChIJ7W-ySfo7WUYRr6E7QHj9tRI",
+      "scope": "GOOGLE",
+      "types": [
+          "restaurant",
+          "food",
+          "point_of_interest",
+          "establishment"
+      ],
+      "user_ratings_total": 1,
+      "vicinity": "Slottsgatan 99, Norrköping",
+      "html_attributions": []
+  },
+  {
+      "business_status": "CLOSED_TEMPORARILY",
+      "geometry": {
+          "location": {
+              "lat": 58.5995089,
+              "lng": 16.1875605
+          },
+          "viewport": {
+              "south": 58.5982883697085,
+              "west": 16.1862524197085,
+              "north": 58.60098633029151,
+              "east": 16.1889503802915
+          }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
+      "icon_background_color": "#FF9E67",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/restaurant_pinlet",
+      "name": "Psychward",
+      "permanently_closed": true,
+      "place_id": "ChIJ9c512f07WUYRSB6oAyzvJwc",
+      "plus_code": {
+          "compound_code": "H5XQ+R2 Norrköping, Sverige",
+          "global_code": "9FCRH5XQ+R2"
+      },
+      "reference": "ChIJ9c512f07WUYRSB6oAyzvJwc",
+      "scope": "GOOGLE",
+      "types": [
+          "restaurant",
+          "food",
+          "point_of_interest",
+          "establishment"
+      ],
+      "vicinity": "Butängsgatan 10B, Norrköping",
+      "html_attributions": []
+  },
+  {
+      "business_status": "OPERATIONAL",
+      "geometry": {
+          "location": {
+              "lat": 58.5954039,
+              "lng": 16.1763479
+          },
+          "viewport": {
+              "south": 58.5940614197085,
+              "west": 16.1749084197085,
+              "north": 58.59675938029151,
+              "east": 16.1776063802915
+          }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
+      "icon_background_color": "#FF9E67",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/restaurant_pinlet",
+      "name": "Sukiyaki",
+      "opening_hours": {
+          "open_now": true
+      },
+      "photos": [
+          {
+              "height": 2988,
+              "html_attributions": [
+                  "<a href=\"https://maps.google.com/maps/contrib/116127734391585185178\">Örjan</a>"
+              ],
+              "width": 5312
+          }
+      ],
+      "place_id": "ChIJDdgcOjQ6WUYRhwZZu4mDhGw",
+      "plus_code": {
+          "compound_code": "H5WG+5G Norrköping, Sverige",
+          "global_code": "9FCRH5WG+5G"
+      },
+      "price_level": 2,
+      "rating": 4.3,
+      "reference": "ChIJDdgcOjQ6WUYRhwZZu4mDhGw",
+      "scope": "GOOGLE",
+      "types": [
+          "restaurant",
+          "food",
+          "point_of_interest",
+          "establishment"
+      ],
+      "user_ratings_total": 272,
+      "vicinity": "KUNGSTORGET, 2, Norrköping",
+      "html_attributions": []
+  },
+  {
+      "business_status": "OPERATIONAL",
+      "geometry": {
+          "location": {
+              "lat": 58.5942936,
+              "lng": 16.1853151
+          },
+          "viewport": {
+              "south": 58.59293091970849,
+              "west": 16.1838842697085,
+              "north": 58.59562888029151,
+              "east": 16.1865822302915
+          }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
+      "icon_background_color": "#FF9E67",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/restaurant_pinlet",
+      "name": "Mat Och Dessertcrêpes",
+      "place_id": "ChIJcdVSOko6WUYR9kZo2xOut5g",
+      "plus_code": {
+          "compound_code": "H5VP+P4 Norrköping, Sverige",
+          "global_code": "9FCRH5VP+P4"
+      },
+      "rating": 3,
+      "reference": "ChIJcdVSOko6WUYR9kZo2xOut5g",
+      "scope": "GOOGLE",
+      "types": [
+          "store",
+          "restaurant",
+          "food",
+          "point_of_interest",
+          "establishment"
+      ],
+      "user_ratings_total": 2,
+      "vicinity": "Drottninggatan 3B, Norrköping",
+      "html_attributions": []
+  },
+  {
+      "business_status": "OPERATIONAL",
+      "geometry": {
+          "location": {
+              "lat": 58.5943079,
+              "lng": 16.1795699
+          },
+          "viewport": {
+              "south": 58.5928833197085,
+              "west": 16.1782599197085,
+              "north": 58.59558128029151,
+              "east": 16.1809578802915
+          }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
+      "icon_background_color": "#FF9E67",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/restaurant_pinlet",
+      "name": "African Restaurant",
+      "opening_hours": {
+          "open_now": true
+      },
+      "place_id": "ChIJTct5UHk7WUYRlCs8AnE_HII",
+      "plus_code": {
+          "compound_code": "H5VH+PR Norrköping, Sverige",
+          "global_code": "9FCRH5VH+PR"
+      },
+      "rating": 4.8,
+      "reference": "ChIJTct5UHk7WUYRlCs8AnE_HII",
+      "scope": "GOOGLE",
+      "types": [
+          "restaurant",
+          "food",
+          "point_of_interest",
+          "establishment"
+      ],
+      "user_ratings_total": 4,
+      "vicinity": "Slottsgatan 130, Norrköping",
+      "html_attributions": []
+  },
+  {
+      "business_status": "OPERATIONAL",
+      "geometry": {
+          "location": {
+              "lat": 58.5942701,
+              "lng": 16.1857138
+          },
+          "viewport": {
+              "south": 58.59288831970849,
+              "west": 16.1843837197085,
+              "north": 58.59558628029151,
+              "east": 16.1870816802915
+          }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
+      "icon_background_color": "#FF9E67",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/restaurant_pinlet",
+      "name": "Restaurant @ Scandic Strömmen",
+      "place_id": "ChIJYzwp1Qg7WUYR7zkwtwCM27s",
+      "plus_code": {
+          "compound_code": "H5VP+P7 Norrköping, Sverige",
+          "global_code": "9FCRH5VP+P7"
+      },
+      "reference": "ChIJYzwp1Qg7WUYR7zkwtwCM27s",
+      "scope": "GOOGLE",
+      "types": [
+          "restaurant",
+          "food",
+          "point_of_interest",
+          "establishment"
+      ],
+      "vicinity": "Saltängsgatan 1, Norrköping",
+      "html_attributions": []
+  },
+  {
+      "business_status": "OPERATIONAL",
+      "geometry": {
+          "location": {
+              "lat": 58.59997859999999,
+              "lng": 16.1881296
+          },
+          "viewport": {
+              "south": 58.59850826970849,
+              "west": 16.1866860697085,
+              "north": 58.6012062302915,
+              "east": 16.18938403029151
+          }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
+      "icon_background_color": "#FF9E67",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/restaurant_pinlet",
+      "name": "MR Svets",
+      "place_id": "ChIJFQdPbUg6WUYRJOIpdYIkOXY",
+      "plus_code": {
+          "compound_code": "H5XQ+X7 Norrköping, Sverige",
+          "global_code": "9FCRH5XQ+X7"
+      },
+      "reference": "ChIJFQdPbUg6WUYRJOIpdYIkOXY",
+      "scope": "GOOGLE",
+      "types": [
+          "restaurant",
+          "food",
+          "point_of_interest",
+          "establishment"
+      ],
+      "vicinity": "Butängsgatan 6A, Norrköping",
+      "html_attributions": []
+  },
+  {
+      "business_status": "OPERATIONAL",
+      "geometry": {
+          "location": {
+              "lat": 58.59374710000001,
+              "lng": 16.1839096
+          },
+          "viewport": {
+              "south": 58.5924885197085,
+              "west": 16.1825119197085,
+              "north": 58.59518648029151,
+              "east": 16.18520988029151
+          }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
+      "icon_background_color": "#FF9E67",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/restaurant_pinlet",
+      "name": "Widinvest Ab",
+      "place_id": "ChIJVVVhako6WUYRuADBo69mmxc",
+      "plus_code": {
+          "compound_code": "H5VM+FH Norrköping, Sverige",
+          "global_code": "9FCRH5VM+FH"
+      },
+      "reference": "ChIJVVVhako6WUYRuADBo69mmxc",
+      "scope": "GOOGLE",
+      "types": [
+          "restaurant",
+          "food",
+          "point_of_interest",
+          "establishment"
+      ],
+      "vicinity": "Bråddgatan 1, Norrköping",
+      "html_attributions": []
+  }
+]
